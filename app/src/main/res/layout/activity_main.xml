@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightgray"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/select_tab_ask"
+            android:gravity="center_horizontal"
+            android:text="@string/tab_ask"
+            android:textColor="@drawable/select_tab_text" />
+
+        <RadioButton
+            android:id="@+id/rb_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/select_tab_info"
+            android:gravity="center_horizontal"
+            android:text="@string/tab_info"
+            android:textColor="@drawable/select_tab_text" />
+
+        <RadioButton
+            android:id="@+id/rb_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/select_tab_user"
+            android:gravity="center_horizontal"
+            android:text="@string/tab_user"
+            android:textColor="@drawable/select_tab_text" />
+    </RadioGroup>
+</LinearLayout>

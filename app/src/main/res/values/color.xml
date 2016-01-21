@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="themecolor">#1EBDA3</color>
+    <color name="gray">#55000000</color>
+    <color name="lightgray">#06000000</color>
+    <color name="darklightgray">#10000000</color>
+</resources>

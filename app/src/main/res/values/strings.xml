@@ -1,6 +1,15 @@
 <resources>
-    <string name="app_name">newpetsknow_b</string>
+    <string name="app_name">宠医生</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="getintomain">进入应用</string>
+    <string name="tab_ask">问诊</string>
+    <string name="tab_info">资料</string>
+    <string name="tab_user">我的</string>
+    <string name="phonenumber">手机号</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="forgetpassword">忘记密码?</string>
+    <string name="regist">注册</string>
 </resources>
