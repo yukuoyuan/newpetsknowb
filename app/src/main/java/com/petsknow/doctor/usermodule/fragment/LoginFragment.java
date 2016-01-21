@@ -1,5 +1,6 @@
 package com.petsknow.doctor.usermodule.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -18,9 +19,11 @@ import com.easemob.chat.EMGroupManager;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.Constant;
 import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.MyApplication;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
+import com.petsknow.doctor.mainmodule.activity.MainActivity;
 import com.petsknow.doctor.usermodule.bean.LoginBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
 
@@ -40,6 +43,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private Button bt_forgetpassword;
     private Button bt_login_regist;
     private LoginBean loginBean;
+    private Intent intent;
 
     @Override
     public void initView(View view) {
@@ -121,6 +125,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         //存储用户信息
                         saveuserdata();
                         logineasemobnema(loginBean.getData().get(0).getEasemobName());
+                        MyApplication.setLogin(true);
+                        intent = new Intent(getActivity(), MainActivity.class);
+                        getActivity().startActivity(intent);
                     } else {
                         T.show(getActivity(), loginBean.getMsg(), 0);
                     }

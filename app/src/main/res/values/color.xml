@@ -4,4 +4,8 @@
     <color name="gray">#55000000</color>
     <color name="lightgray">#06000000</color>
     <color name="darklightgray">#10000000</color>
+    <color name="color_564c46">#564c46</color>
+    <color name="color_eae4e1">#eae4e1</color>
+    <color name="color_7e7e7e">#7e7e7e</color>
+    <color name="color_ff917a">#ff917a</color>
 </resources>

@@ -27,8 +27,10 @@
             android:checked="true"
             android:drawableTop="@drawable/select_tab_ask"
             android:gravity="center_horizontal"
+            android:padding="6dp"
             android:text="@string/tab_ask"
-            android:textColor="@drawable/select_tab_text" />
+            android:textColor="@drawable/select_tab_text"
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/rb_info"
@@ -38,8 +40,10 @@
             android:button="@null"
             android:drawableTop="@drawable/select_tab_info"
             android:gravity="center_horizontal"
+            android:padding="6dp"
             android:text="@string/tab_info"
-            android:textColor="@drawable/select_tab_text" />
+            android:textColor="@drawable/select_tab_text"
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/rb_user"
@@ -49,7 +53,9 @@
             android:button="@null"
             android:drawableTop="@drawable/select_tab_user"
             android:gravity="center_horizontal"
+            android:padding="6dp"
             android:text="@string/tab_user"
-            android:textColor="@drawable/select_tab_text" />
+            android:textColor="@drawable/select_tab_text"
+            android:textSize="12sp" />
     </RadioGroup>
 </LinearLayout>

@@ -8,5 +8,4 @@
         <!--控件的主题色-->
         <item name="colorAccent">@color/themecolor</item>
     </style>
-
 </resources>

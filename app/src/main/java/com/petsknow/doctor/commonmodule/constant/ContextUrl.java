@@ -11,4 +11,6 @@ public class ContextUrl {
     // public static String BaseUrl = "http://182.92.31.72/pets_know_api";
     //登录
     public static String login = "/doctor/open/doctor/login";
+    //所有会话列表
+    public static String getallseesionlist = "/inquiry/find_inquiry_bill_by_doctor_id";
 }
