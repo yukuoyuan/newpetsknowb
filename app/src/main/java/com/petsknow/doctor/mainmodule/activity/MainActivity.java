@@ -12,10 +12,15 @@ import android.widget.RadioGroup;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.adapter.MyPagerAdapter;
+import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.infomodule.fragment.InfoFragment;
 import com.petsknow.doctor.patientmodule.activity.PatientActivity;
 import com.petsknow.doctor.sessionmodule.fragment.SessionListFragment;
 import com.petsknow.doctor.usermodule.fragment.UserFragment;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.android.tpush.service.XGPushService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initdata() {
+        initXg();
         fragments.add(new SessionListFragment());
         fragments.add(new InfoFragment());
         fragments.add(new UserFragment());
@@ -97,6 +103,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         });
+    }
+
+    /**
+     * 注册信鸽
+     */
+    private void initXg() {
+        XGPushConfig.enableDebug(this, true);
+        XGPushManager.registerPush(getApplicationContext(), new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object data, int flag) {
+                L.e("TPush", "注册成功，设备token为：" + data);
+            }
+
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                L.e("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+            }
+        });
+        // 2.36（不包括）之前的版本需要调用以下2行代码
+        Intent service = new Intent(this, XGPushService.class);
+        startService(service);
     }
 
     @Override
