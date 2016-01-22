@@ -190,8 +190,8 @@
             <ImageView
                 android:id="@+id/tv_wating_photos_pt"
                 android:layout_marginTop="10dp"
-                android:layout_width="54dp"
-                android:layout_height="54dp" />
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
             <TextView
                    android:id="@+id/tv_wating_status_pt"
                    android:textColor="@color/color_ff917a"

@@ -29,6 +29,18 @@
         android:layout_centerInParent="true"
         android:src="@drawable/public_titlebg" />
 
+    <TextView
+        android:id="@+id/tv_right"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:text="@string/admissions"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
     <ImageButton
         android:id="@+id/ib_main_mypatient"
         android:layout_width="wrap_content"

@@ -16,4 +16,6 @@
     <string name="session_loading">待发送诊断书问诊</string>
     <string name="session_ing">进行中的问诊</string>
     <string name="mypatienttime" >上次问诊:</string>
+    <string name="admissions">接诊</string>
+    <string name="user_nohavept">宠物主人尚未上传图片</string>
 </resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/public_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_watingdetial_avator"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/tv_watingdetailusername"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="nihao" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/watingdetail_desc_bg">
+
+            <TextView
+                android:id="@+id/tv_watingdetaildesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="anoafahfioahofhahfoiajiofaifafiaifafafafajfjafanfafnanfa" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="123dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/wating_detail_photo">
+
+        <LinearLayout
+            android:id="@+id/ll_watingdetailphoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/iv_watingdetail_photoone"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_margin="6dp" />
+
+            <ImageView
+                android:id="@+id/iv_watingdetail_phototwo"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_margin="6dp" />
+
+            <ImageView
+                android:id="@+id/iv_watingdetail_photothree"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_margin="6dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_watingdetail_nohave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/user_nohavept"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

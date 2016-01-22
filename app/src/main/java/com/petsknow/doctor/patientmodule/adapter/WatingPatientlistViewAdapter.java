@@ -39,9 +39,9 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
     private void initImageoptions() {
         options = new ImageOptions.Builder()
                 //设置加载过程中的图片
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
+                .setLoadingDrawableId(R.drawable.main_mypatient)
                         //设置加载失败后的图片
-                .setFailureDrawableId(R.mipmap.ic_launcher)
+                .setFailureDrawableId(R.drawable.main_mypatient)
 
                 .setCircular(true)
                         //设置支持gif

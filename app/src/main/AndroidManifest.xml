@@ -62,6 +62,14 @@
         <activity
             android:name=".patientmodule.activity.PatientActivity"
             android:screenOrientation="portrait" />
+        <!--这是一个查看相片的页面-->
+        <activity
+            android:name=".commonmodule.activity.PhotoBrowerActivity"
+            android:screenOrientation="portrait" />
+        <!--这是一个问诊详情的界面-->
+        <activity
+            android:name=".patientmodule.activity.WatingDetailActivity"
+            android:screenOrientation="portrait" />
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"

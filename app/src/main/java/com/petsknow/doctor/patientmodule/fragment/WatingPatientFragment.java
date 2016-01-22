@@ -1,11 +1,13 @@
 package com.petsknow.doctor.patientmodule.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
@@ -14,6 +16,7 @@ import com.petsknow.doctor.commonmodule.constant.ContextUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
+import com.petsknow.doctor.patientmodule.activity.WatingDetailActivity;
 import com.petsknow.doctor.patientmodule.adapter.WatingPatientlistViewAdapter;
 import com.petsknow.doctor.patientmodule.bean.WatingpatientBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
@@ -36,6 +39,7 @@ public class WatingPatientFragment extends BaseFragment {
     private WatingPatientlistViewAdapter watingPatientlistViewAdapter;
     private WatingpatientBean watingpatientBean;
     private List<WatingpatientBean.DataEntity> list = new ArrayList<>();
+    private Intent intent;
 
     @Override
     public void initView(View view) {
@@ -56,6 +60,14 @@ public class WatingPatientFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 getwatingpatient();
+            }
+        });
+        lv_wating_patient.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                intent = new Intent(getActivity(), WatingDetailActivity.class);
+                intent.putExtra("id", list.get(position).getId());
+                getActivity().startActivity(intent);
             }
         });
         getwatingpatient();

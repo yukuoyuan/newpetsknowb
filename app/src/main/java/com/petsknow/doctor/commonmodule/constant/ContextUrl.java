@@ -19,4 +19,6 @@ public class ContextUrl {
     public static String Mypatient = "/inquiry/find_illness_case_by_doctor_id";
     //所有待珍列表的方法
     public static String getwatingpatient = "/inquiry/find_un_dispense_inquiry_bill";
+    //获取问诊详情
+    public static String getwatingdetial = "/inquiry/find_inquiry_bill_by_id";
 }
