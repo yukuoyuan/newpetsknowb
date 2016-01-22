@@ -20,6 +20,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.1'
+    /*这是一个xutils3.0的网络请求工具类*/
+    compile 'org.xutils:xutils:3.0'
+    /*解析json的框架*/
+    compile 'com.alibaba:fastjson:1.2.7'
+    compile 'com.android.support:design:23.1.1'
 }
