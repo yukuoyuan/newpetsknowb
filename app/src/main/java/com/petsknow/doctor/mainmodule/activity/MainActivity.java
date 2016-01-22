@@ -1,9 +1,11 @@
 package com.petsknow.doctor.mainmodule.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -11,6 +13,7 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.adapter.MyPagerAdapter;
 import com.petsknow.doctor.infomodule.fragment.InfoFragment;
+import com.petsknow.doctor.patientmodule.activity.PatientActivity;
 import com.petsknow.doctor.sessionmodule.fragment.SessionListFragment;
 import com.petsknow.doctor.usermodule.fragment.UserFragment;
 
@@ -21,7 +24,7 @@ import java.util.List;
  * Created by yukuo on 2016/1/21.
  * 这是一个主页面
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ViewPager vp_main;
     private RadioGroup rg_main;
@@ -29,6 +32,8 @@ public class MainActivity extends BaseActivity {
     private RadioButton rb_info;
     private RadioButton rb_user;
     private List<Fragment> fragments = new ArrayList<>();
+    private ImageButton ib_main_mypatient;
+    private Intent intent;
 
     @Override
     public void initView() {
@@ -37,11 +42,12 @@ public class MainActivity extends BaseActivity {
         rb_ask = (RadioButton) findViewById(R.id.rb_ask);
         rb_info = (RadioButton) findViewById(R.id.rb_info);
         rb_user = (RadioButton) findViewById(R.id.rb_user);
+        ib_main_mypatient = (ImageButton) findViewById(R.id.ib_main_mypatient);
     }
 
     @Override
     public void setListener() {
-
+        ib_main_mypatient.setOnClickListener(this);
     }
 
     @Override
@@ -100,5 +106,15 @@ public class MainActivity extends BaseActivity {
         initView();
         setListener();
         initdata();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ib_main_mypatient:
+                intent = new Intent(MainActivity.this, PatientActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

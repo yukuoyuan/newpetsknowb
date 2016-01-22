@@ -15,4 +15,5 @@
     <string name="session_done">已完成问诊</string>
     <string name="session_loading">待发送诊断书问诊</string>
     <string name="session_ing">进行中的问诊</string>
+    <string name="mypatienttime" >上次问诊:</string>
 </resources>

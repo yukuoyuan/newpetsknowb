@@ -23,13 +23,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        L.e("oncreat", "oncreat");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        L.e("onCreateView", "onCreateView");
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
@@ -37,49 +35,41 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        L.e("onViewCreated", "onViewCreated");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        L.e("onActivityCreated", "onActivityCreated");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        L.e("onStart", "onStart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        L.e("onResume", "onResume");
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
-        L.e("onPause", "onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        L.e("onStop", "onStop");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        L.e("onDestroyView", "onDestroyView");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        L.e("onDestroy", "onDestroy");
     }
 }

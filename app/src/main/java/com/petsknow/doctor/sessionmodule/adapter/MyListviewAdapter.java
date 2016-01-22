@@ -8,7 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.petsknow.doctor.R;
+import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.mainmodule.bean.SeesionBean;
+
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
 
 import java.util.List;
 
@@ -19,11 +24,26 @@ import java.util.List;
 public class MyListviewAdapter extends BaseAdapter {
     private List<SeesionBean.DataEntity> list;
     private Context context;
+    private ImageOptions options;
 
     public MyListviewAdapter(Context context, List<SeesionBean.DataEntity> list) {
         super();
         this.list = list;
         this.context = context;
+        initImageoptions();
+    }
+
+    private void initImageoptions() {
+        options = new ImageOptions.Builder()
+                //设置加载过程中的图片
+                .setLoadingDrawableId(R.mipmap.ic_launcher)
+                        //设置加载失败后的图片
+                .setFailureDrawableId(R.mipmap.ic_launcher)
+                        //设置显示圆形图片
+                .setCircular(true)
+                        //设置支持gif
+                .setIgnoreGif(false)
+                .build();
     }
 
     @Override
@@ -47,7 +67,28 @@ public class MyListviewAdapter extends BaseAdapter {
         }
         //描述信息
         myHolder.sessiondesc.setText(list.get(position).getDescription());
-
+        if (list.get(position).getBillStatus() == 5) {
+            myHolder.seesionstatus.setText("已评论");
+        } else if (list.get(position).getBillStatus() == 6) {
+            myHolder.seesionstatus.setText("未评论");
+        } else if (list.get(position).getBillStatus() == 2) {
+            myHolder.seesionstatus.setText("等您回复");
+        } else if (list.get(position).getBillStatus() == 3) {
+            myHolder.seesionstatus.setText("已结束问诊");
+        }
+        /**
+         * 设置时间的显示
+         */
+        if (list.get(position).getAcceptTime() == 0) {
+            myHolder.seesiontime.setText("还没有说话");
+        } else {
+            long time = System.currentTimeMillis() - list.get(position).getAcceptTime();
+            myHolder.seesiontime.setText(DateUtil.getKeepTimStr(time) + "前");
+        }
+        /**
+         * 设置头像的展示
+         */
+        x.image().bind(myHolder.avaturl, list.get(position).getAvatarUrl(), options);
         return convertView;
     }
 

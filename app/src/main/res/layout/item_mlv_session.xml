@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="69dp">
+        android:layout_height="60dp">
 
         <com.petsknow.doctor.commonmodule.view.CircleImageView
             android:id="@+id/iv_avatorurl"

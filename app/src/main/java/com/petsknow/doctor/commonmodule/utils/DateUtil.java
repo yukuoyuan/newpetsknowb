@@ -42,4 +42,47 @@ public class DateUtil {
         }
         return longtime;
     }
+
+    /**
+     * 这是一个获取是多久之前的信息的界面
+     *
+     * @param time
+     * @return
+     */
+    public static String getKeepTimStr(long time) {
+        if (time < 0)
+            return "0分钟";
+        if (time / (1000 * 60) < 60) {
+            return time / (1000 * 60) + "分钟";
+        } else if (time / (1000 * 60 * 60) < 24) {
+            return time / (1000 * 60 * 60) + "小时";
+        } else if (time / (1000 * 60 * 60 * 24) < 30) {
+            return time / (1000 * 60 * 60 * 24) + "天";
+        } else if (time / (1000 * 60 * 60 * 24 * 30L) < 12) {
+            return time / (1000 * 60 * 60 * 24 * 30L) + "月";
+        } else {
+            return time / (1000L * 60L * 60L * 24L * 30L * 12L) + "年";
+        }
+    }
+
+    /**
+     * 这是一个获取年龄的工具类
+     *
+     * @param m 生日时间
+     * @return
+     */
+    public static long getAge(long m) {
+        long l = System.currentTimeMillis();
+        if (l <= m) {
+            return 0l;
+        }
+        long delt = (l - m) / 3600000;
+        long s = delt / (24 * 365);
+        if (s < 1) {
+            return 1;
+        } else {
+            return s;
+        }
+
+    }
 }
