@@ -27,4 +27,5 @@ dependencies {
     /*解析json的框架*/
     compile 'com.alibaba:fastjson:1.2.7'
     compile 'com.android.support:design:23.1.1'
+    compile project(':easeUI')
 }
