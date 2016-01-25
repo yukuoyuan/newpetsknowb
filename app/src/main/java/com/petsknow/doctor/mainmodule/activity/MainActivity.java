@@ -9,6 +9,10 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.easemob.EMConnectionListener;
+import com.easemob.EMError;
+import com.easemob.chat.EMChatManager;
+import com.easemob.util.NetUtils;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.adapter.MyPagerAdapter;
@@ -58,6 +62,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initdata() {
         initXg();
+        initem();
         fragments.add(new SessionListFragment());
         fragments.add(new InfoFragment());
         fragments.add(new UserFragment());
@@ -101,6 +106,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         vp_main.setCurrentItem(2);
                         break;
                 }
+            }
+        });
+    }
+
+    /**
+     * 这是一个环信监听连接状态的方法
+     */
+    private void initem() {
+        EMChatManager.getInstance().addConnectionListener(new EMConnectionListener() {
+            @Override
+            public void onConnected() {
+                L.e("环信连接状态", "连接成功");
+            }
+
+            @Override
+            public void onDisconnected(final int i) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (i == EMError.USER_REMOVED) {
+                            // 显示帐号已经被移除
+                            L.e("环信连接状态", "帐号已经被移除");
+                        } else if (i == EMError.CONNECTION_CONFLICT) {
+                            // 显示帐号在其他设备登陆
+                            L.e("环信连接状态", "帐号在其他设备登陆");
+                        } else {
+                            if (NetUtils.hasNetwork(MainActivity.this)) {
+                                //连接不到聊天服务器
+                                L.e("环信连接状态", "连接不到聊天服务器");
+                            } else {
+                                //当前网络不可用，请检查网络设置
+                                L.e("环信连接状态", "当前网络不可用，请检查网络设置");
+                            }
+                        }
+                    }
+                });
             }
         });
     }

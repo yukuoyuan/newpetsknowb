@@ -83,6 +83,20 @@ public class DateUtil {
         } else {
             return s;
         }
+    }
 
+    /**
+     * 这是一个获取宠物各种疫苗事件的方法
+     *
+     * @param time
+     * @return
+     */
+    public static String getpetVaccine(long time) {
+        String timeStr = "未注射";
+        if (time != 0) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            timeStr = sdf.format(time);
+        }
+        return timeStr;
     }
 }

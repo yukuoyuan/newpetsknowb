@@ -2,6 +2,7 @@ package com.petsknow.doctor.patientmodule.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class WatingPatientFragment extends BaseFragment {
     public void initdata() {
         watingPatientlistViewAdapter = new WatingPatientlistViewAdapter(getActivity(), list);
         lv_wating_patient.setAdapter(watingPatientlistViewAdapter);
+        srl_wating_patient.setColorSchemeResources(R.color.themecolor);
         srl_wating_patient.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -67,10 +69,20 @@ public class WatingPatientFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(getActivity(), WatingDetailActivity.class);
                 intent.putExtra("id", list.get(position).getId());
+                intent.putExtra("avator", list.get(position).getAvatarUrl());
                 getActivity().startActivity(intent);
             }
         });
-        getwatingpatient();
+        /**
+         * 这是初始化数据得方法
+         */
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                srl_wating_patient.setRefreshing(true);
+                getwatingpatient();
+            }
+        }, 100);
     }
 
     /**

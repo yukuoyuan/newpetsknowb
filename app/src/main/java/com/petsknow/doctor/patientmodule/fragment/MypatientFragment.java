@@ -52,6 +52,7 @@ public class MypatientFragment extends BaseFragment {
     public void initdata() {
         myPatientlistViewAdapter = new MyPatientlistViewAdapter(getActivity(), list);
         lv_mypatient.setAdapter(myPatientlistViewAdapter);
+        srl_mypatient.setColorSchemeResources(R.color.themecolor);
         srl_mypatient.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

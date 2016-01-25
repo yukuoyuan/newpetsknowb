@@ -21,4 +21,6 @@ public class ContextUrl {
     public static String getwatingpatient = "/inquiry/find_un_dispense_inquiry_bill";
     //获取问诊详情
     public static String getwatingdetial = "/inquiry/find_inquiry_bill_by_id";
+    //接诊
+    public static String reception="/inquiry/confirm_inquiry_bill";
 }
