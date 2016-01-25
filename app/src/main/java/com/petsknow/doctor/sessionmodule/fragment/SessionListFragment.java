@@ -1,10 +1,12 @@
 package com.petsknow.doctor.sessionmodule.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
@@ -14,6 +16,7 @@ import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.commonmodule.view.MyListview;
 import com.petsknow.doctor.mainmodule.bean.SeesionBean;
+import com.petsknow.doctor.sessionmodule.activity.ChatActivity;
 import com.petsknow.doctor.sessionmodule.adapter.MyListviewAdapter;
 import com.petsknow.doctor.usermodule.manger.UserManger;
 
@@ -41,6 +44,7 @@ public class SessionListFragment extends BaseFragment {
     private MyListviewAdapter myListviewAdapter01;
     private MyListviewAdapter myListviewAdapter02;
     private MyListviewAdapter myListviewAdapter03;
+    private Intent intent;
 
     @Override
     public void initView(View view) {
@@ -57,6 +61,30 @@ public class SessionListFragment extends BaseFragment {
     @Override
     public void initdata() {
         getseesiondata();
+        mlv_session_ing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("toChatUsername", list01.get(position).getEasemobName());
+                startActivity(intent);
+            }
+        });
+        mlv_session_loading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("toChatUsername", list01.get(position).getEasemobName());
+                startActivity(intent);
+            }
+        });
+        mlv_session_done.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("toChatUsername", list01.get(position).getEasemobName());
+                startActivity(intent);
+            }
+        });
     }
 
     @Nullable
@@ -112,6 +140,7 @@ public class SessionListFragment extends BaseFragment {
             @Override
             public void onError(Throwable throwable, boolean b) {
                 T.show(getActivity(), "网络请求超时,请稍后再试", 0);
+                L.e("所有会话列表的错误信息", throwable.toString());
             }
 
             @Override

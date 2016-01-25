@@ -245,22 +245,22 @@ public class SeesionBean {
         public static class PetsVoEntity {
             private int age;
             private long birthday;
-            private Object ctime;
+            private long ctime;
             private int gender;
             private int id;
             private String imageBackground;
-            private Object insideDebugTime;
+            private long insideDebugTime;
             private int isInsideDebug;
             private int isMultiVaccine;
             private int isNeuter;
             private int isOutsideDebug;
             private int isRabiesVaccine;
-            private Object multiVaccineTime;
+            private long multiVaccineTime;
             private String name;
-            private int neuter;
-            private Object outsideDebugTime;
+            private long neuter;
+            private long outsideDebugTime;
             private String petsAvator;
-            private Object rabiesVaccineTime;
+            private long rabiesVaccineTime;
             private int species;
             private int status;
             private long updateTime;
@@ -275,7 +275,7 @@ public class SeesionBean {
                 this.birthday = birthday;
             }
 
-            public void setCtime(Object ctime) {
+            public void setCtime(long ctime) {
                 this.ctime = ctime;
             }
 
@@ -291,7 +291,7 @@ public class SeesionBean {
                 this.imageBackground = imageBackground;
             }
 
-            public void setInsideDebugTime(Object insideDebugTime) {
+            public void setInsideDebugTime(long insideDebugTime) {
                 this.insideDebugTime = insideDebugTime;
             }
 
@@ -315,7 +315,7 @@ public class SeesionBean {
                 this.isRabiesVaccine = isRabiesVaccine;
             }
 
-            public void setMultiVaccineTime(Object multiVaccineTime) {
+            public void setMultiVaccineTime(long multiVaccineTime) {
                 this.multiVaccineTime = multiVaccineTime;
             }
 
@@ -323,11 +323,11 @@ public class SeesionBean {
                 this.name = name;
             }
 
-            public void setNeuter(int neuter) {
+            public void setNeuter(long neuter) {
                 this.neuter = neuter;
             }
 
-            public void setOutsideDebugTime(Object outsideDebugTime) {
+            public void setOutsideDebugTime(long outsideDebugTime) {
                 this.outsideDebugTime = outsideDebugTime;
             }
 
@@ -335,7 +335,7 @@ public class SeesionBean {
                 this.petsAvator = petsAvator;
             }
 
-            public void setRabiesVaccineTime(Object rabiesVaccineTime) {
+            public void setRabiesVaccineTime(long rabiesVaccineTime) {
                 this.rabiesVaccineTime = rabiesVaccineTime;
             }
 
@@ -367,7 +367,7 @@ public class SeesionBean {
                 return birthday;
             }
 
-            public Object getCtime() {
+            public long getCtime() {
                 return ctime;
             }
 
@@ -383,7 +383,7 @@ public class SeesionBean {
                 return imageBackground;
             }
 
-            public Object getInsideDebugTime() {
+            public long getInsideDebugTime() {
                 return insideDebugTime;
             }
 
@@ -407,7 +407,7 @@ public class SeesionBean {
                 return isRabiesVaccine;
             }
 
-            public Object getMultiVaccineTime() {
+            public long getMultiVaccineTime() {
                 return multiVaccineTime;
             }
 
@@ -415,11 +415,11 @@ public class SeesionBean {
                 return name;
             }
 
-            public int getNeuter() {
+            public long getNeuter() {
                 return neuter;
             }
 
-            public Object getOutsideDebugTime() {
+            public long getOutsideDebugTime() {
                 return outsideDebugTime;
             }
 
@@ -427,7 +427,7 @@ public class SeesionBean {
                 return petsAvator;
             }
 
-            public Object getRabiesVaccineTime() {
+            public long getRabiesVaccineTime() {
                 return rabiesVaccineTime;
             }
 
