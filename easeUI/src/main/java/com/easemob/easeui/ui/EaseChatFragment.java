@@ -93,7 +93,6 @@ public class EaseChatFragment extends EaseBaseFragment implements EMEventListene
     protected File cameraFile;
     protected EaseVoiceRecorderView voiceRecorderView;
     protected SwipeRefreshLayout swipeRefreshLayout;
-    protected ListView listView;
 
     protected boolean isloading;
     protected boolean haveMoreData = true;
@@ -112,6 +111,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMEventListene
     private EMChatRoomChangeListener chatRoomChangeListener;
     private boolean isMessageListInited;
     protected MyItemClickListener extendMenuItemClickListener;
+    private ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -275,7 +275,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMEventListene
                 conversation.loadMoreGroupMsgFromDB(msgId, pagesize - msgCount);
             }
         }
-        
+
     }
     
     protected void onMessageListInit(){
@@ -926,6 +926,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMEventListene
     
    
     protected EaseChatFragmentListener chatFragmentListener;
+
     public void setChatFragmentListener(EaseChatFragmentListener chatFragmentListener){
         this.chatFragmentListener = chatFragmentListener;
     }
