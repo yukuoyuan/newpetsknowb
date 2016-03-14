@@ -11,39 +11,34 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.adapter.MyPagerAdapter;
 import com.petsknow.doctor.commonmodule.constant.Constant;
+import com.petsknow.doctor.commonmodule.constant.MyApplication;
 import com.petsknow.doctor.commonmodule.utils.SPUtil;
 import com.petsknow.doctor.guidemodule.fragment.GuideFirstFragment;
 import com.petsknow.doctor.guidemodule.fragment.GuideSecondFragment;
 import com.petsknow.doctor.guidemodule.fragment.GuideThirdFragment;
 import com.petsknow.doctor.mainmodule.activity.MainActivity;
+import com.petsknow.doctor.usermodule.activity.LoginAndRegistActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by yukuo on 2016/1/21.
  * 这是一个引导的页面
  */
 public class GuideActivity extends BaseActivity implements View.OnClickListener {
-
-    private ViewPager vp_guide;
-    private Button bt_getintomain;
+    @Bind(R.id.vp_guide)
+    ViewPager vp_guide;
+    @Bind(R.id.bt_getintomain)
+    Button bt_getintomain;
     private List<Fragment> fragments = new ArrayList<>();
     private Intent intent;
 
     @Override
-    public void initView() {
-        vp_guide = (ViewPager) findViewById(R.id.vp_guide);
-        bt_getintomain = (Button) findViewById(R.id.bt_getintomain);
-    }
-
-    @Override
-    public void setListener() {
-        bt_getintomain.setOnClickListener(this);
-    }
-
-    @Override
-    public void initdata() {
+    public void initdata(Bundle extras) {
         fragments.add(new GuideFirstFragment());
         fragments.add(new GuideSecondFragment());
         fragments.add(new GuideThirdFragment());
@@ -72,20 +67,26 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
-        initView();
-        setListener();
-        initdata();
+    public int getContentLayout() {
+        return R.layout.activity_guide;
     }
 
     @Override
+    @OnClick({R.id.bt_getintomain})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_getintomain:
                 SPUtil.putBoolean(getApplicationContext(), Constant.ISFIRST, true);
-                loadLogin();
+                /**
+                 *判断是否登录
+                 */
+                if (MyApplication.islogin()) {
+                    //打开主页面
+                    loadMainUi();
+                } else {
+                    //打开登录注册页面
+                    loadLogin();
+                };
                 break;
         }
     }
@@ -94,6 +95,15 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
      * 跳转至登录注册页面
      */
     private void loadLogin() {
+        intent = new Intent(GuideActivity.this, LoginAndRegistActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * 打开主页面
+     */
+    private void loadMainUi() {
         intent = new Intent(GuideActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.easemob.chat.EMChat;
-import com.easemob.easeui.controller.EaseUI;
 import com.petsknow.doctor.commonmodule.utils.SPUtil;
 
 import org.xutils.x;
@@ -28,8 +27,6 @@ public class MyApplication extends Application {
         x.Ext.init(this);
         initeasemobname();
         initeasemobnemasecond();
-        //初始化环信界面
-        EaseUI.getInstance().init(context);
     }
 
     private void initeasemobnemasecond() {

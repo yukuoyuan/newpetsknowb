@@ -1,11 +1,13 @@
 package com.petsknow.doctor.mainmodule.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -29,86 +31,26 @@ import com.tencent.android.tpush.service.XGPushService;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Created by yukuo on 2016/1/21.
  * 这是一个主页面
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-
-    private ViewPager vp_main;
-    private RadioGroup rg_main;
-    private RadioButton rb_ask;
-    private RadioButton rb_info;
-    private RadioButton rb_user;
+    @Bind(R.id.vp_main)
+    ViewPager vp_main;
+    @Bind(R.id.rg_main)
+    RadioGroup rg_main;
+    @Bind(R.id.rb_ask)
+    RadioButton rb_ask;
+    @Bind(R.id.rb_info)
+    RadioButton rb_info;
+    @Bind(R.id.rb_user)
+    RadioButton rb_user;
     private List<Fragment> fragments = new ArrayList<>();
-    private ImageButton ib_main_mypatient;
     private Intent intent;
-
-    @Override
-    public void initView() {
-        vp_main = (ViewPager) findViewById(R.id.vp_main);
-        rg_main = (RadioGroup) findViewById(R.id.rg_main);
-        rb_ask = (RadioButton) findViewById(R.id.rb_ask);
-        rb_info = (RadioButton) findViewById(R.id.rb_info);
-        rb_user = (RadioButton) findViewById(R.id.rb_user);
-        ib_main_mypatient = (ImageButton) findViewById(R.id.ib_main_mypatient);
-    }
-
-    @Override
-    public void setListener() {
-        ib_main_mypatient.setOnClickListener(this);
-    }
-
-    @Override
-    public void initdata() {
-        initXg();
-        initem();
-        fragments.add(new SessionListFragment());
-        fragments.add(new InfoFragment());
-        fragments.add(new UserFragment());
-        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragments);
-        vp_main.setAdapter(myPagerAdapter);
-        vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        rb_ask.setChecked(true);
-                        break;
-                    case 1:
-                        rb_info.setChecked(true);
-                        break;
-                    case 2:
-                        rb_user.setChecked(true);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-        rg_main.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_ask:
-                        vp_main.setCurrentItem(0);
-                        break;
-                    case R.id.rb_info:
-                        vp_main.setCurrentItem(1);
-                        break;
-                    case R.id.rb_user:
-                        vp_main.setCurrentItem(2);
-                        break;
-                }
-            }
-        });
-    }
 
     /**
      * 这是一个环信监听连接状态的方法
@@ -168,15 +110,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-        setListener();
-        initdata();
-    }
-
-    @Override
+    @OnClick({R.id.ib_main_mypatient})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ib_main_mypatient:
@@ -184,5 +118,76 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void initdata(Bundle extras) {
+        initXg();
+        initem();
+        initemmessage();
+        fragments.add(new SessionListFragment());
+        fragments.add(new InfoFragment());
+        fragments.add(new UserFragment());
+        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragments);
+        vp_main.setAdapter(myPagerAdapter);
+        vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        rb_ask.setChecked(true);
+                        break;
+                    case 1:
+                        rb_info.setChecked(true);
+                        break;
+                    case 2:
+                        rb_user.setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        rg_main.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_ask:
+                        vp_main.setCurrentItem(0);
+                        break;
+                    case R.id.rb_info:
+                        vp_main.setCurrentItem(1);
+                        break;
+                    case R.id.rb_user:
+                        vp_main.setCurrentItem(2);
+                        break;
+                }
+            }
+        });
+    }
+
+    private void initemmessage() {
+        //只有注册了广播才能接收到新消息，目前离线消息，在线消息都是走接收消息的广播（离线消息目前无法监听，在登录以后，接收消息广播会执行一次拿到所有的离线消息）
+        NewMessageBroadcastReceiver msgReceiver = new NewMessageBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
+        intentFilter.setPriority(3);
+        registerReceiver(msgReceiver, intentFilter);
+    }
+
+    private class NewMessageBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            L.i("收到了新消息", "收到了");
+        }
+    }
+    @Override
+    public int getContentLayout() {
+        return R.layout.activity_main;
     }
 }

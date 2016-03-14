@@ -7,18 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.petsknow.doctor.commonmodule.utils.L;
+import butterknife.ButterKnife;
 
 /**
  * Created by yukuo on 2016/1/21.
  * 这是一个基础的fragment
  */
 public abstract class BaseFragment extends Fragment {
-    public abstract void initView(View view);
+    /**
+     * 这是一个初始化数据的方法
+     */
+    public abstract void initdata(Bundle arguments);
 
-    public abstract void setListener();
-
-    public abstract void initdata();
+    /**
+     * 这是一个获取布局文件资源的方法
+     *
+     * @return
+     */
+    public abstract int getContentLayout();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,8 +34,9 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-
+        View view = inflater.inflate(getContentLayout(), container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -40,6 +47,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initdata(getArguments());
+
     }
 
     @Override
@@ -66,10 +75,12 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

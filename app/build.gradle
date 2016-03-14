@@ -27,5 +27,6 @@ dependencies {
     /*解析json的框架*/
     compile 'com.alibaba:fastjson:1.2.7'
     compile 'com.android.support:design:23.1.1'
-    compile project(':easeUI')
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
 }

@@ -1,39 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:easemob="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.easemob.easeui.widget.EaseTitleBar
-        android:id="@+id/title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        easemob:titleBarLeftImage="@drawable/ease_mm_title_back" />
+    <include layout="@layout/public_toolbar" />
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lv_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/input_menu"
-        android:layout_below="@id/title_bar">
+        android:layout_weight="1" />
 
-        <com.easemob.easeui.widget.EaseChatMessageList
-            android:id="@+id/message_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.easemob.easeui.widget.EaseVoiceRecorderView
-            android:id="@+id/voice_recorder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
-    </RelativeLayout>
-
-    <com.easemob.easeui.widget.EaseChatInputMenu
-        android:id="@+id/input_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-
-</RelativeLayout>
+    <include layout="@layout/chat_footbar" />
+</LinearLayout>

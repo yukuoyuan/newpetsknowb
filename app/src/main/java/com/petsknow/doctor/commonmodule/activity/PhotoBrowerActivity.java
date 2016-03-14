@@ -8,41 +8,31 @@ import com.petsknow.doctor.R;
 
 import org.xutils.x;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Created by yukuo on 2016/1/22.
  * 这是一个图片查看功能的页面
  */
 public class PhotoBrowerActivity extends BaseActivity implements View.OnClickListener {
-
-    private ImageView iv_photobrower;
+    @Bind(R.id.iv_photobrower)
+    ImageView iv_photobrower;
     private String photourl;
 
     @Override
-    public void initView() {
-        iv_photobrower = (ImageView) findViewById(R.id.iv_photobrower);
-    }
-
-    @Override
-    public void setListener() {
-        iv_photobrower.setOnClickListener(this);
-    }
-
-    @Override
-    public void initdata() {
-        photourl = getIntent().getStringExtra("url");
+    public void initdata(Bundle extras) {
+        photourl = extras.getString("url");
         x.image().bind(iv_photobrower, photourl);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photobrower);
-        initView();
-        setListener();
-        initdata();
+    public int getContentLayout() {
+        return R.layout.activity_photobrower;
     }
 
     @Override
+    @OnClick({R.id.iv_photobrower})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_photobrower:

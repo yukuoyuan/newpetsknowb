@@ -2,14 +2,10 @@ package com.petsknow.doctor.usermodule.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
@@ -31,63 +27,39 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Created by yukuo on 2016/1/21.
  * 这是一个登陆的页面
  */
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
-
-    private Button bt_login;
-    private EditText et_login_phone;
-    private EditText et_login_password;
-    private Button bt_forgetpassword;
-    private Button bt_login_regist;
+    @Bind(R.id.et_login_phone)
+    EditText et_login_phone;
+    @Bind(R.id.et_login_password)
+    EditText et_login_password;
     private LoginBean loginBean;
     private Intent intent;
 
     @Override
-    public void initView(View view) {
-        bt_login = (Button) view.findViewById(R.id.bt_login);
-        et_login_phone = (EditText) view.findViewById(R.id.et_login_phone);
-        et_login_password = (EditText) view.findViewById(R.id.et_login_password);
-        bt_forgetpassword = (Button) view.findViewById(R.id.bt_forgetpassword);
-        bt_login_regist = (Button) view.findViewById(R.id.bt_login_regist);
-    }
-
-    @Override
-    public void setListener() {
-        bt_login.setOnClickListener(this);
-        bt_forgetpassword.setOnClickListener(this);
-        bt_login_regist.setOnClickListener(this);
-    }
-
-    @Override
-    public void initdata() {
+    public void initdata(Bundle arguments) {
 
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, null);
+    public int getContentLayout() {
+        return R.layout.fragment_login;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-        setListener();
-        initdata();
-    }
-
-    @Override
+    @OnClick({R.id.bt_login, R.id.bt_forgetpassword, R.id.bt_login_regist})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_login:
                 loginuser();
                 break;
             case R.id.bt_forgetpassword:
-
                 break;
             case R.id.bt_login_regist:
                 Registfragment registfragment = new Registfragment();

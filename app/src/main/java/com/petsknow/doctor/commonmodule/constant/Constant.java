@@ -16,5 +16,13 @@ public class Constant {
     //用户头像
     public static String USERAVATOR = "USERAVATOR";
     //环信登录密码
-    public static String EASEMOBNAMEPWD = "pesknow";
+    public static String EASEMOBNAMEPWD = "petsknow";
+    //发送文字类型
+    public static int SENDTXT = 1;
+    //发送图片类型
+    public static int SENDIMAGE = 2;
+    //接受文字类型
+    public static int FROMTXT = 3;
+    //接受图片类型
+    public static int FROMIMAGE = 4;
 }

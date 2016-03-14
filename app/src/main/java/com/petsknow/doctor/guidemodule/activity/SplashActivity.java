@@ -17,19 +17,8 @@ import com.petsknow.doctor.usermodule.activity.LoginAndRegistActivity;
 public class SplashActivity extends BaseActivity {
 
     private Intent intent;
-
     @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void setListener() {
-
-    }
-
-    @Override
-    public void initdata() {
+    public void initdata(Bundle extras) {
         new Thread() {
             @Override
             public void run() {
@@ -61,6 +50,11 @@ public class SplashActivity extends BaseActivity {
         }.start();
     }
 
+    @Override
+    public int getContentLayout() {
+        return R.layout.activity_splash;
+    }
+
     private void loadLogin() {
         intent = new Intent(SplashActivity.this, LoginAndRegistActivity.class);
         startActivity(intent);
@@ -75,14 +69,4 @@ public class SplashActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        initView();
-        setListener();
-        initdata();
-    }
-
 }

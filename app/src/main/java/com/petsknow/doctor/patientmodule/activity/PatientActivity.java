@@ -18,38 +18,31 @@ import com.petsknow.doctor.patientmodule.fragment.WatingPatientFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Created by yukuo on 2016/1/22.
  * 这是一个患者的页面
  */
 public class PatientActivity extends BaseActivity implements View.OnClickListener {
-
-    private TabLayout tab_patient;
-    private ViewPager vp_patient;
+    @Bind(R.id.tab_patient)
+    TabLayout tab_patient;
+    @Bind(R.id.vp_patient)
+    ViewPager vp_patient;
     private List<Fragment> fragments = new ArrayList<>();
     private List<String> list = new ArrayList<>();
-    private ImageButton iv_back;
-    private TextView tv_public_title;
-    private ImageButton ib_main_mypatient;
-    private ImageView public_titlebg;
+    @Bind(R.id.iv_back)
+    ImageButton iv_back;
+    @Bind(R.id.tv_public_title)
+    TextView tv_public_title;
+    @Bind(R.id.ib_main_mypatient)
+    ImageButton ib_main_mypatient;
+    @Bind(R.id.public_titlebg)
+    ImageView public_titlebg;
 
     @Override
-    public void initView() {
-        tab_patient = (TabLayout) findViewById(R.id.tab_patient);
-        vp_patient = (ViewPager) findViewById(R.id.vp_patient);
-        iv_back = (ImageButton) findViewById(R.id.iv_back);
-        tv_public_title = (TextView) findViewById(R.id.tv_public_title);
-        public_titlebg = (ImageView) findViewById(R.id.public_titlebg);
-        ib_main_mypatient = (ImageButton) findViewById(R.id.ib_main_mypatient);
-    }
-
-    @Override
-    public void setListener() {
-        iv_back.setOnClickListener(this);
-    }
-
-    @Override
-    public void initdata() {
+    public void initdata(Bundle extras) {
         iv_back.setVisibility(View.VISIBLE);
         tv_public_title.setVisibility(View.VISIBLE);
         public_titlebg.setVisibility(View.GONE);
@@ -68,15 +61,12 @@ public class PatientActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient);
-        initView();
-        setListener();
-        initdata();
+    public int getContentLayout() {
+        return R.layout.activity_patient;
     }
 
     @Override
+    @OnClick({R.id.iv_back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:

@@ -2,10 +2,7 @@ package com.petsknow.doctor.sessionmodule.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSON;
@@ -27,16 +24,20 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 /**
  * Created by yukuo on 2016/1/21.
  * 这是一个会话列表的页面
  */
 public class SessionListFragment extends BaseFragment {
 
-
-    private MyListview mlv_session_ing;
-    private MyListview mlv_session_loading;
-    private MyListview mlv_session_done;
+    @Bind(R.id.mlv_session_ing)
+    MyListview mlv_session_ing;
+    @Bind(R.id.mlv_session_loading)
+    MyListview mlv_session_loading;
+    @Bind(R.id.mlv_session_done)
+    MyListview mlv_session_done;
     private SeesionBean seesionBean;
     private List<SeesionBean.DataEntity> list01 = new ArrayList<SeesionBean.DataEntity>();
     private List<SeesionBean.DataEntity> list02 = new ArrayList<SeesionBean.DataEntity>();
@@ -47,58 +48,40 @@ public class SessionListFragment extends BaseFragment {
     private Intent intent;
 
     @Override
-    public void initView(View view) {
-        mlv_session_ing = (MyListview) view.findViewById(R.id.mlv_session_ing);
-        mlv_session_loading = (MyListview) view.findViewById(R.id.mlv_session_loading);
-        mlv_session_done = (MyListview) view.findViewById(R.id.mlv_session_done);
-    }
-
-    @Override
-    public void setListener() {
-
-    }
-
-    @Override
-    public void initdata() {
+    public void initdata(Bundle arguments) {
         getseesiondata();
         mlv_session_ing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("toChatUsername", list01.get(position).getEasemobName());
-                startActivity(intent);
+                L.e("聊天人的环信账号01", list01.get(position).getEasemobName());
+                getActivity().startActivity(intent);
             }
         });
         mlv_session_loading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("toChatUsername", list01.get(position).getEasemobName());
-                startActivity(intent);
+                intent.putExtra("toChatUsername", list02.get(position).getEasemobName());
+                L.e("聊天人的环信账号02", list02.get(position).getEasemobName());
+                getActivity().startActivity(intent);
             }
         });
         mlv_session_done.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("toChatUsername", list01.get(position).getEasemobName());
-                startActivity(intent);
+                intent.putExtra("toChatUsername", list03.get(position).getEasemobName());
+                L.e("聊天人的环信账号03", list03.get(position).getEasemobName());
+                getActivity().startActivity(intent);
             }
         });
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sessionlist, null);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-        setListener();
-        initdata();
+    public int getContentLayout() {
+        return R.layout.fragment_sessionlist;
     }
 
     /**

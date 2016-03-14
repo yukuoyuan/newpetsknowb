@@ -32,95 +32,76 @@ import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Created by yukuo on 2016/1/22.
  * 这是一个问诊详情的界面
  */
 public class WatingDetailActivity extends BaseActivity implements View.OnClickListener {
-
-    private ImageButton iv_back;
-    private TextView tv_public_title;
-    private ImageView public_titlebg;
-    private ImageButton ib_main_mypatient;
-    private TextView tv_right;
+    @Bind(R.id.iv_back)
+    ImageButton iv_back;
+    @Bind(R.id.tv_public_title)
+    TextView tv_public_title;
+    @Bind(R.id.public_titlebg)
+    ImageView public_titlebg;
+    @Bind(R.id.ib_main_mypatient)
+    ImageButton ib_main_mypatient;
+    @Bind(R.id.tv_right)
+    TextView tv_right;
     private int id;
     private WatingpatientBean watingpatientBean;
-    private ImageView iv_watingdetial_avator;
-    private TextView tv_watingdetailusername;
-    private TextView tv_watingdetaildesc;
-    private LinearLayout ll_watingdetailphoto;
-    private TextView tv_watingdetail_nohave;
-    private ImageView iv_watingdetail_photoone;
-    private ImageView iv_watingdetail_phototwo;
-    private ImageView iv_watingdetail_photothree;
+    @Bind(R.id.iv_watingdetial_avator)   //头像
+    ImageView iv_watingdetial_avator;
+    @Bind(R.id.tv_watingdetailusername) //用户名字
+    TextView tv_watingdetailusername;
+    @Bind(R.id.tv_watingdetaildesc)  //描述信息
+    TextView tv_watingdetaildesc;
+    @Bind(R.id.ll_watingdetailphoto)        //照片信息
+    LinearLayout ll_watingdetailphoto;
+
+    @Bind(R.id.tv_watingdetail_nohave) //没有照片的信息展示
+    TextView tv_watingdetail_nohave;
+
+    @Bind(R.id.iv_watingdetail_photoone)  //第一个照片
+    ImageView iv_watingdetail_photoone;
+
+    @Bind(R.id.iv_watingdetail_phototwo)  //第二个照片
+    ImageView iv_watingdetail_phototwo;
+
+    @Bind(R.id.iv_watingdetail_photothree)  //第三个照片
+    ImageView iv_watingdetail_photothree;
     private Intent intent;
     private ImageOptions options;
     private String avator;
     private ImageOptions options02;
-    private TextView tv_watingdetail_pet_name;
-    private TextView tv_watingdetail_pet_breed;
-    private TextView tv_watingdetail_pet_age;
-    private TextView tv_wating_detail_pet_sterrilization;
-    private TextView tv_watingdetail_pet_in_parasite;
-    private TextView tv_watingdetail_pet_needle;
-    private TextView tv_watingdetail_pet_gender;
-    private TextView tv_watingdetail_pet_rabies_vaccine;
-    private TextView tv_watingdetail_pet_out_parasite;
+    @Bind(R.id.tv_watingdetail_pet_name) //宠物姓名
+    TextView tv_watingdetail_pet_name;
+
+    @Bind(R.id.tv_watingdetail_pet_breed)  //宠物品种
+    TextView tv_watingdetail_pet_breed;
+
+    @Bind(R.id.tv_watingdetail_pet_age)  //宠物年龄
+    TextView tv_watingdetail_pet_age;
+
+    @Bind(R.id.tv_wating_detail_pet_sterrilization) //绝育状态
+    TextView tv_wating_detail_pet_sterrilization;
+
+    @Bind(R.id.tv_watingdetail_pet_in_parasite)  //体内驱虫
+    TextView tv_watingdetail_pet_in_parasite;
+
+    @Bind(R.id.tv_watingdetail_pet_needle)  //联苗针时间
+    TextView tv_watingdetail_pet_needle;
+    @Bind(R.id.tv_watingdetail_pet_gender)  //性别
+    TextView tv_watingdetail_pet_gender;
+    @Bind(R.id.tv_watingdetail_pet_rabies_vaccine)  //狂犬疫苗
+    TextView tv_watingdetail_pet_rabies_vaccine;
+    @Bind(R.id.tv_watingdetail_pet_out_parasite)  //体外驱虫
+    TextView tv_watingdetail_pet_out_parasite;
 
     @Override
-    public void initView() {
-        iv_back = (ImageButton) findViewById(R.id.iv_back);
-        tv_public_title = (TextView) findViewById(R.id.tv_public_title);
-        public_titlebg = (ImageView) findViewById(R.id.public_titlebg);
-        ib_main_mypatient = (ImageButton) findViewById(R.id.ib_main_mypatient);
-        tv_right = (TextView) findViewById(R.id.tv_right);
-        //头像
-        iv_watingdetial_avator = (ImageView) findViewById(R.id.iv_watingdetial_avator);
-        //用户名字
-        tv_watingdetailusername = (TextView) findViewById(R.id.tv_watingdetailusername);
-        //描述信息
-        tv_watingdetaildesc = (TextView) findViewById(R.id.tv_watingdetaildesc);
-        //照片信息
-        ll_watingdetailphoto = (LinearLayout) findViewById(R.id.ll_watingdetailphoto);
-        //没有照片的信息展示
-        tv_watingdetail_nohave = (TextView) findViewById(R.id.tv_watingdetail_nohave);
-        //第一个照片
-        iv_watingdetail_photoone = (ImageView) findViewById(R.id.iv_watingdetail_photoone);
-        //第二个照片
-        iv_watingdetail_phototwo = (ImageView) findViewById(R.id.iv_watingdetail_phototwo);
-        //第三个照片
-        iv_watingdetail_photothree = (ImageView) findViewById(R.id.iv_watingdetail_photothree);
-        //宠物姓名
-        tv_watingdetail_pet_name = (TextView) findViewById(R.id.tv_watingdetail_pet_name);
-        //宠物品种
-        tv_watingdetail_pet_breed = (TextView) findViewById(R.id.tv_watingdetail_pet_breed);
-        //宠物年龄
-        tv_watingdetail_pet_age = (TextView) findViewById(R.id.tv_watingdetail_pet_age);
-        //绝育状态
-        tv_wating_detail_pet_sterrilization = (TextView) findViewById(R.id.tv_wating_detail_pet_sterrilization);
-        //体内驱虫
-        tv_watingdetail_pet_in_parasite = (TextView) findViewById(R.id.tv_watingdetail_pet_in_parasite);
-        //联苗针时间
-        tv_watingdetail_pet_needle = (TextView) findViewById(R.id.tv_watingdetail_pet_needle);
-        //性别
-        tv_watingdetail_pet_gender = (TextView) findViewById(R.id.tv_watingdetail_pet_gender);
-        //狂犬疫苗
-        tv_watingdetail_pet_rabies_vaccine = (TextView) findViewById(R.id.tv_watingdetail_pet_rabies_vaccine);
-        //体外驱虫
-        tv_watingdetail_pet_out_parasite = (TextView) findViewById(R.id.tv_watingdetail_pet_out_parasite);
-    }
-
-    @Override
-    public void setListener() {
-        iv_back.setOnClickListener(this);
-        tv_right.setOnClickListener(this);
-        iv_watingdetail_photoone.setOnClickListener(this);
-        iv_watingdetail_phototwo.setOnClickListener(this);
-        iv_watingdetail_photothree.setOnClickListener(this);
-    }
-
-    @Override
-    public void initdata() {
+    public void initdata(Bundle extras) {
         iv_back.setVisibility(View.VISIBLE);
         tv_public_title.setVisibility(View.VISIBLE);
         public_titlebg.setVisibility(View.GONE);
@@ -135,15 +116,13 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_watingdetail);
-        initView();
-        setListener();
-        initdata();
+    public int getContentLayout() {
+        return R.layout.activity_watingdetail;
     }
 
     @Override
+    @OnClick({R.id.iv_back, R.id.tv_right, R.id.iv_watingdetail_photoone, R.id.iv_watingdetail_phototwo
+            , R.id.iv_watingdetail_photothree})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
