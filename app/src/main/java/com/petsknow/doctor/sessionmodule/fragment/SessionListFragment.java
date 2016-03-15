@@ -54,8 +54,10 @@ public class SessionListFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("toChatUsername", list01.get(position).getEasemobName());
-                L.e("聊天人的环信账号01", list01.get(position).getEasemobName());
+                intent.putExtra("toChatUsername", list01.get(position).getEasemobName());//聊天对方的环信账号
+                intent.putExtra("id", list01.get(position).getId());//问诊单id
+                intent.putExtra("avator", list01.get(position).getAvatarUrl());//对方用户的头像
+                L.e("聊天人的环信账号01", list01.get(position).getEasemobName() + "**" + list01.get(position).getId());
                 getActivity().startActivity(intent);
             }
         });
@@ -64,6 +66,8 @@ public class SessionListFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("toChatUsername", list02.get(position).getEasemobName());
+                intent.putExtra("id", list02.get(position).getId());
+                intent.putExtra("avator", list02.get(position).getAvatarUrl());//对方用户的头像
                 L.e("聊天人的环信账号02", list02.get(position).getEasemobName());
                 getActivity().startActivity(intent);
             }
@@ -73,6 +77,7 @@ public class SessionListFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("toChatUsername", list03.get(position).getEasemobName());
+                intent.putExtra("id", list03.get(position).getId());
                 L.e("聊天人的环信账号03", list03.get(position).getEasemobName());
                 getActivity().startActivity(intent);
             }
@@ -88,7 +93,7 @@ public class SessionListFragment extends BaseFragment {
      * 获取会话列表
      */
     public void getseesiondata() {
-        String url = ContextUrl.BaseUrl + ContextUrl.getallseesionlist;
+        String url = ContextUrl.BaseUrl() + ContextUrl.getallseesionlist;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
         params.addHeader("dt_id", UserManger.getUserId() + "");

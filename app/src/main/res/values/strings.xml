@@ -18,4 +18,11 @@
     <string name="mypatienttime" >上次问诊:</string>
     <string name="admissions">接诊</string>
     <string name="user_nohavept">宠物主人尚未上传图片</string>
+    <string name="send">发送</string>
+    <string name="please_input_sendmsg">请输入您的回复</string>
+    <string name="photo">图片</string>
+    <string name="folder_all">所有照片</string>
+    <string name="preview">预览</string>
+    <string name="msg_no_camera">没有系统相机</string>
+    <string name="msg_amount_limit">已经达到最高选择数量</string>
 </resources>

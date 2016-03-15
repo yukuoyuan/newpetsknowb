@@ -45,7 +45,7 @@ public class WatingPatientFragment extends BaseFragment {
      * 这是一个获取患者列表的界面的方法
      */
     private void getwatingpatient() {
-        String url = ContextUrl.BaseUrl + ContextUrl.getwatingpatient;
+        String url = ContextUrl.BaseUrl() + ContextUrl.getwatingpatient;
         RequestParams params = new RequestParams(url);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override

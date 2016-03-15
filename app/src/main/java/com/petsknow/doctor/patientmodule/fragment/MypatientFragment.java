@@ -55,7 +55,7 @@ public class MypatientFragment extends BaseFragment {
     }
 
     public void getmypatientdata() {
-        String url = ContextUrl.BaseUrl + ContextUrl.Mypatient;
+        String url = ContextUrl.BaseUrl() + ContextUrl.Mypatient;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
         x.http().get(params, new Callback.CommonCallback<String>() {

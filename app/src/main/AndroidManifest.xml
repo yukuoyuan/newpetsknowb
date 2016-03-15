@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.BATTERY_STATS" />
 
     <application
-        android:name=".commonmodule.constant.MyApplication"
+        android:name=".commonmodule.constant.PetsknowDoctorApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -71,12 +71,17 @@
             android:name=".patientmodule.activity.WatingDetailActivity"
             android:screenOrientation="portrait" />
         <!--这是一个聊天的界面-->
-        <activity android:name=".sessionmodule.activity.ChatActivity"
+        <activity
+            android:name=".sessionmodule.activity.ChatActivity"
+            android:screenOrientation="portrait" />
+        <!--这是一个坊微信的图片选择的页面-->
+        <activity
+            android:name=".commonmodule.view.imageselector.MultiImageSelectorActivity"
             android:screenOrientation="portrait" />
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="petsknow#petknowtext" />
+            android:value="petsknow#petsknow" />
         <!--测试:petsknow#petknowtext-->
         <!--正式:petsknow#petsknow-->
         <!-- 声明sdk所需的service SDK核心功能-->

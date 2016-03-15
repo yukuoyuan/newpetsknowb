@@ -1,16 +1,29 @@
 package com.petsknow.doctor.sessionmodule.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.easemob.chat.EMMessage;
+import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
+import com.easemob.util.DateUtils;
 import com.petsknow.doctor.R;
+import com.petsknow.doctor.commonmodule.activity.PhotoBrowerActivity;
 import com.petsknow.doctor.commonmodule.constant.Constant;
+import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.sessionmodule.utils.SmileUtils;
 
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,10 +32,19 @@ import java.util.List;
  */
 public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<EMMessage> list;
+    private Intent intent;
+    private Activity activity;
+    private String avator;
+    private ImageOptions options;
+    private ImageOptions optionsmsg;
 
-    public ChartListVIewAdapter(List<EMMessage> list) {
+    public ChartListVIewAdapter(List<EMMessage> list, Activity activity, String avator) {
         super();
         this.list = list;
+        this.activity = activity;
+        this.avator = avator;
+        initImageoptions();
+        initImageoptionsmsg();
     }
 
     /**
@@ -33,6 +55,28 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void addData(EMMessage msg) {
         list.add(list.size(), msg);
         notifyItemInserted(list.size());
+    }
+
+    private void initImageoptions() {
+        options = new ImageOptions.Builder()
+                //设置加载过程中的图片
+                .setLoadingDrawableId(R.drawable.default_icon_headphoto)
+                        //设置加载失败后的图片
+                .setFailureDrawableId(R.drawable.default_icon_headphoto)
+                        //设置显示圆形图片
+                .setCircular(true)
+                        //设置支持gif
+                .setIgnoreGif(false)
+                .build();
+    }
+
+    private void initImageoptionsmsg() {
+        optionsmsg = new ImageOptions.Builder()
+                //设置加载过程中的图片
+                .setLoadingDrawableId(R.mipmap.ic_launcher)
+                        //设置加载失败后的图片
+                .setFailureDrawableId(R.mipmap.ic_launcher)
+                .build();
     }
 
     @Override
@@ -83,14 +127,61 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof SendTxtVIewHolder) {
             TextMessageBody txtbody = (TextMessageBody) list.get(position).getBody();
             String content = txtbody.getMessage();
-            ((SendTxtVIewHolder) holder).tv_item_send_txt.setText(content);
-        } else if (holder instanceof SendImageVIewHolder) {
 
+            ((SendTxtVIewHolder) holder).tv_item_send_txt.setText(SmileUtils.getSmiledText(activity, content));
+            // 两条消息时间离得如果稍长，显示时间
+            if (position == 0) {
+
+            } else {
+                if (DateUtils.isCloseEnough(list.get(position).getMsgTime(), list.get(position - 1).getMsgTime())) {
+                    ((SendTxtVIewHolder) holder).tv_send_msg_date.setVisibility(View.GONE);
+                } else {
+                    ((SendTxtVIewHolder) holder).tv_send_msg_date.setText(DateUtils.getTimestampString(new Date(list.get(position).getMsgTime())));
+                    ((SendTxtVIewHolder) holder).tv_send_msg_date.setVisibility(View.VISIBLE);
+                }
+            }
+
+        } else if (holder instanceof SendImageVIewHolder) {
+            final ImageMessageBody imageMessageBody = (ImageMessageBody) list.get(position).getBody();
+            L.i("图片地址", imageMessageBody.getLocalUrl() + "****" + imageMessageBody.getRemoteUrl());
+            x.image().bind(((SendImageVIewHolder) holder).iv_item_send_image, imageMessageBody.getLocalUrl(), optionsmsg);
+            ((SendImageVIewHolder) holder).iv_item_send_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent = new Intent(activity, PhotoBrowerActivity.class);
+                    intent.putExtra("url", imageMessageBody.getLocalUrl());
+                    activity.startActivity(intent);
+                }
+            });
         } else if (holder instanceof FromTxtVIewHolder) {
             TextMessageBody txtbody = (TextMessageBody) list.get(position).getBody();
             String content = txtbody.getMessage();
-            ((FromTxtVIewHolder) holder).tv_item_from_txt.setText(content);
+            ((FromTxtVIewHolder) holder).tv_item_from_txt.setText(SmileUtils.getSmiledText(activity, content));
+            x.image().bind(((FromTxtVIewHolder) holder).from_person_avator, ContextUrl.qiniu + avator, options);
+            // 两条消息时间离得如果稍长，显示时间
+            if (position == 0) {
+
+            } else {
+                if (DateUtils.isCloseEnough(list.get(position).getMsgTime(), list.get(position - 1).getMsgTime())) {
+                    ((FromTxtVIewHolder) holder).tv_from_msg_date.setVisibility(View.GONE);
+                } else {
+                    ((FromTxtVIewHolder) holder).tv_from_msg_date.setText(DateUtils.getTimestampString(new Date(list.get(position).getMsgTime())));
+                    ((FromTxtVIewHolder) holder).tv_from_msg_date.setVisibility(View.VISIBLE);
+                }
+            }
         } else if (holder instanceof FromImageVIewHolder) {
+            final ImageMessageBody imageMessageBody = (ImageMessageBody) list.get(position).getBody();
+            L.i("图片地址接受者", imageMessageBody.getLocalUrl() + "****" + imageMessageBody.getRemoteUrl());
+            x.image().bind(((FromImageVIewHolder) holder).iv_item_from_image, imageMessageBody.getRemoteUrl(), optionsmsg);
+            x.image().bind(((FromImageVIewHolder) holder).from_person_avator, ContextUrl.qiniu + avator, options);
+            ((FromImageVIewHolder) holder).iv_item_from_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent = new Intent(activity, PhotoBrowerActivity.class);
+                    intent.putExtra("url", imageMessageBody.getRemoteUrl());
+                    activity.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -101,31 +192,45 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     class SendTxtVIewHolder extends RecyclerView.ViewHolder {
         private TextView tv_item_send_txt;
+        private TextView tv_send_msg_date;
 
         public SendTxtVIewHolder(View view) {
             super(view);
             tv_item_send_txt = (TextView) view.findViewById(R.id.tv_item_send_txt);
+            tv_send_msg_date = (TextView) view.findViewById(R.id.tv_send_msg_date);
         }
     }
 
     class SendImageVIewHolder extends RecyclerView.ViewHolder {
+        private ImageView iv_item_send_image;
+
         public SendImageVIewHolder(View view) {
             super(view);
+            iv_item_send_image = (ImageView) view.findViewById(R.id.iv_send_image);
         }
     }
 
     class FromTxtVIewHolder extends RecyclerView.ViewHolder {
         private TextView tv_item_from_txt;
+        private ImageView from_person_avator;
+        private TextView tv_from_msg_date;
 
         public FromTxtVIewHolder(View view) {
             super(view);
             tv_item_from_txt = (TextView) view.findViewById(R.id.tv_item_from_txt);
+            from_person_avator = (ImageView) view.findViewById(R.id.from_person_avator);
+            tv_from_msg_date = (TextView) view.findViewById(R.id.tv_from_msg_date);
         }
     }
 
     class FromImageVIewHolder extends RecyclerView.ViewHolder {
+        private ImageView iv_item_from_image;
+        private ImageView from_person_avator;
+
         public FromImageVIewHolder(View view) {
             super(view);
+            iv_item_from_image = (ImageView) view.findViewById(R.id.iv_from_image);
+            from_person_avator = (ImageView) view.findViewById(R.id.from_person_avator);
         }
     }
 }

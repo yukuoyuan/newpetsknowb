@@ -177,7 +177,7 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
      * 这是一个接诊的方法
      */
     private void reception() {
-        String url = ContextUrl.BaseUrl + ContextUrl.reception;
+        String url = ContextUrl.BaseUrl() + ContextUrl.reception;
         RequestParams params = new RequestParams(url);
         params.setAsJsonContent(true);
         params.addParameter("id", id);
@@ -274,7 +274,7 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
      * 获取问诊详情的界面
      */
     public void getwatingdetail() {
-        String url = ContextUrl.BaseUrl + ContextUrl.getwatingdetial;
+        String url = ContextUrl.BaseUrl() + ContextUrl.getwatingdetial;
         RequestParams params = new RequestParams(url);
         params.setAsJsonContent(true);
         params.addParameter("id", id);

@@ -13,16 +13,19 @@ import android.widget.RadioGroup;
 
 import com.easemob.EMConnectionListener;
 import com.easemob.EMError;
+import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.util.NetUtils;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.adapter.MyPagerAdapter;
 import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.guidemodule.activity.SplashActivity;
 import com.petsknow.doctor.infomodule.fragment.InfoFragment;
 import com.petsknow.doctor.patientmodule.activity.PatientActivity;
 import com.petsknow.doctor.sessionmodule.fragment.SessionListFragment;
 import com.petsknow.doctor.usermodule.fragment.UserFragment;
+import com.petsknow.doctor.usermodule.manger.UserManger;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
@@ -51,6 +54,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     RadioButton rb_user;
     private List<Fragment> fragments = new ArrayList<>();
     private Intent intent;
+    private NewMessageBroadcastReceiver msgReceiver;
 
     /**
      * 这是一个环信监听连接状态的方法
@@ -73,6 +77,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         } else if (i == EMError.CONNECTION_CONFLICT) {
                             // 显示帐号在其他设备登陆
                             L.e("环信连接状态", "帐号在其他设备登陆");
+                            UserManger.setLogin(false);
+                            Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             if (NetUtils.hasNetwork(MainActivity.this)) {
                                 //连接不到聊天服务器
@@ -174,10 +182,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void initemmessage() {
         //只有注册了广播才能接收到新消息，目前离线消息，在线消息都是走接收消息的广播（离线消息目前无法监听，在登录以后，接收消息广播会执行一次拿到所有的离线消息）
-        NewMessageBroadcastReceiver msgReceiver = new NewMessageBroadcastReceiver();
+        msgReceiver = new NewMessageBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
         intentFilter.setPriority(3);
         registerReceiver(msgReceiver, intentFilter);
+        EMChat.getInstance().setAppInited();
     }
 
     private class NewMessageBroadcastReceiver extends BroadcastReceiver {
@@ -186,8 +195,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             L.i("收到了新消息", "收到了");
         }
     }
+
     @Override
     public int getContentLayout() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(msgReceiver);
     }
 }

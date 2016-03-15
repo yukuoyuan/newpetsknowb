@@ -15,7 +15,6 @@ import com.easemob.chat.EMGroupManager;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.Constant;
 import com.petsknow.doctor.commonmodule.constant.ContextUrl;
-import com.petsknow.doctor.commonmodule.constant.MyApplication;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -82,7 +81,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             T.show(getActivity(), "密码不能为空", 0);
             return;
         }
-        String url = ContextUrl.BaseUrl + ContextUrl.login;
+        String url = ContextUrl.BaseUrl() + ContextUrl.login;
         RequestParams params = new RequestParams(url);
         params.addParameter("phone", phone);
         params.addParameter("password", pwd);
@@ -97,9 +96,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         //存储用户信息
                         saveuserdata();
                         logineasemobnema(loginBean.getData().get(0).getEasemobName());
-                        MyApplication.setLogin(true);
+                        UserManger.setLogin(true);
                         intent = new Intent(getActivity(), MainActivity.class);
                         getActivity().startActivity(intent);
+                        getActivity().finish();
                     } else {
                         T.show(getActivity(), loginBean.getMsg(), 0);
                     }
@@ -130,12 +130,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         EMChatManager.getInstance().login(usernema, Constant.EASEMOBNAMEPWD, new EMCallBack() {//回调
             @Override
             public void onSuccess() {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        EMGroupManager.getInstance().loadAllGroups();
-                        L.d("main", "登陆聊天服务器成功！");
-                    }
-                });
+                EMGroupManager.getInstance().loadAllGroups();
+                L.d("main", "登陆聊天服务器成功！");
             }
 
             @Override

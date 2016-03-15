@@ -3,7 +3,7 @@ package com.petsknow.doctor.usermodule.manger;
 import android.content.Context;
 
 import com.petsknow.doctor.commonmodule.constant.Constant;
-import com.petsknow.doctor.commonmodule.constant.MyApplication;
+import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
 import com.petsknow.doctor.commonmodule.utils.SPUtil;
 
 /**
@@ -11,7 +11,7 @@ import com.petsknow.doctor.commonmodule.utils.SPUtil;
  * 这是一个用户信息的管理类
  */
 public class UserManger {
-    public static Context context = MyApplication.context;
+    public static Context context = PetsknowDoctorApplication.context;
 
     /**
      * 存储用户id的方法
@@ -65,5 +65,24 @@ public class UserManger {
      */
     public static String getUSerAvator() {
         return SPUtil.getString(context, Constant.USERAVATOR, "");
+    }
+
+    /**
+     * 这是一个判断用户是否登录的方法
+     *
+     * @return
+     */
+    public static boolean islogin() {
+        boolean flag = SPUtil.getBoolean(context, Constant.ISLOGIN, false);
+        return flag;
+    }
+
+    /**
+     * 这是一个存储用户登录状态的方法
+     *
+     * @param flag
+     */
+    public static void setLogin(boolean flag) {
+        SPUtil.putBoolean(context, Constant.ISLOGIN, flag);
     }
 }

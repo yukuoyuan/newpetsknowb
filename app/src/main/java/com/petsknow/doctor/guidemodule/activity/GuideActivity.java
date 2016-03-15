@@ -11,13 +11,13 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.adapter.MyPagerAdapter;
 import com.petsknow.doctor.commonmodule.constant.Constant;
-import com.petsknow.doctor.commonmodule.constant.MyApplication;
 import com.petsknow.doctor.commonmodule.utils.SPUtil;
 import com.petsknow.doctor.guidemodule.fragment.GuideFirstFragment;
 import com.petsknow.doctor.guidemodule.fragment.GuideSecondFragment;
 import com.petsknow.doctor.guidemodule.fragment.GuideThirdFragment;
 import com.petsknow.doctor.mainmodule.activity.MainActivity;
 import com.petsknow.doctor.usermodule.activity.LoginAndRegistActivity;
+import com.petsknow.doctor.usermodule.manger.UserManger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
                 /**
                  *判断是否登录
                  */
-                if (MyApplication.islogin()) {
+                if (UserManger.islogin()) {
                     //打开主页面
                     loadMainUi();
                 } else {

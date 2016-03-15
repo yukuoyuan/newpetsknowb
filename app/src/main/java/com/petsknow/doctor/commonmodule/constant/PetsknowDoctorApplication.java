@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.easemob.chat.EMChat;
-import com.petsknow.doctor.commonmodule.utils.SPUtil;
 
 import org.xutils.x;
 
@@ -16,7 +15,7 @@ import java.util.List;
 /**
  * Created by yukuo on 2016/1/11.
  */
-public class MyApplication extends Application {
+public class PetsknowDoctorApplication extends Application {
     public static Context context;
 
     @Override
@@ -25,7 +24,9 @@ public class MyApplication extends Application {
         context = this;
         //初始化xutils3.0
         x.Ext.init(this);
+        //有第三方服务需要调用此方法(环信)
         initeasemobname();
+        //初始化环信
         initeasemobnemasecond();
     }
 
@@ -36,7 +37,7 @@ public class MyApplication extends Application {
     private void initeasemobname() {
         int pid = android.os.Process.myPid();
         String processAppName = getAppName(pid);
-        if (processAppName == null || !processAppName.equalsIgnoreCase("com.easemob.chatuidemo")) {
+        if (processAppName == null || !processAppName.equalsIgnoreCase("com.petsknow.doctor")) {
             return;
         }
     }
@@ -61,22 +62,4 @@ public class MyApplication extends Application {
         return processName;
     }
 
-    /**
-     * 这是一个判断用户是否登录的方法
-     *
-     * @return
-     */
-    public static boolean islogin() {
-        boolean flag = SPUtil.getBoolean(context, Constant.ISLOGIN, false);
-        return flag;
-    }
-
-    /**
-     * 这是一个存储用户登录状态的方法
-     *
-     * @param flag
-     */
-    public static void setLogin(boolean flag) {
-        SPUtil.putBoolean(context, Constant.ISLOGIN, flag);
-    }
 }

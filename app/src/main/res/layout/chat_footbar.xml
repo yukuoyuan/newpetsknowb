@@ -4,4 +4,90 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/darklightgray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/et_chart_inputxttmsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_bg"
+            android:hint="@string/please_input_sendmsg"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp" />
+
+        <ImageView
+            android:id="@+id/iv_send_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/face" />
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="50dp">
+
+            <Button
+                android:id="@+id/bt_send_msg"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:background="@color/themecolor"
+                android:text="@string/send"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_more_sendmsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/add" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/darklightgray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridView
+            android:id="@+id/gv_send_emojmsg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="6"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_send_photomsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:drawableTop="@drawable/photo"
+            android:gravity="center_horizontal"
+            android:text="@string/photo"
+            android:visibility="gone" />
+    </RelativeLayout>
 </LinearLayout>

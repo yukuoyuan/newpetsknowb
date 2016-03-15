@@ -6,10 +6,10 @@ import android.os.Bundle;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.constant.Constant;
-import com.petsknow.doctor.commonmodule.constant.MyApplication;
 import com.petsknow.doctor.commonmodule.utils.SPUtil;
 import com.petsknow.doctor.mainmodule.activity.MainActivity;
 import com.petsknow.doctor.usermodule.activity.LoginAndRegistActivity;
+import com.petsknow.doctor.usermodule.manger.UserManger;
 
 /**
  * 这是一个过渡页面
@@ -17,6 +17,7 @@ import com.petsknow.doctor.usermodule.activity.LoginAndRegistActivity;
 public class SplashActivity extends BaseActivity {
 
     private Intent intent;
+
     @Override
     public void initdata(Bundle extras) {
         new Thread() {
@@ -34,7 +35,7 @@ public class SplashActivity extends BaseActivity {
                         /**
                          *判断是否登录
                          */
-                        if (MyApplication.islogin()) {
+                        if (UserManger.islogin()) {
                             //打开主页面
                             loadMainUi();
                         } else {
