@@ -57,6 +57,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by yukuo on 2016/1/25.
@@ -228,7 +229,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                 break;
         }
     }
-
     /**
      * 这是一个获取图片路径信息的方法
      *
@@ -385,6 +385,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
             public void onProgress(int i, String s) {
             }
         });
+        EventBus.getDefault().post("Admissions");
     }
 
     /**

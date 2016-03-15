@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by yukuo on 2016/1/22.
@@ -40,6 +41,23 @@ public class WatingPatientFragment extends BaseFragment {
     private WatingpatientBean watingpatientBean;
     private List<WatingpatientBean.DataEntity> list = new ArrayList<>();
     private Intent intent;
+    public void onEvent(String event) {
+        if (event.equals("Admissions")){
+            getActivity().finish();
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     /**
      * 这是一个获取患者列表的界面的方法
@@ -107,7 +125,7 @@ public class WatingPatientFragment extends BaseFragment {
                 intent = new Intent(getActivity(), WatingDetailActivity.class);
                 intent.putExtra("id", list.get(position).getId());
                 intent.putExtra("avator", list.get(position).getAvatarUrl());
-                getActivity().startActivity(intent);
+                startActivity(intent);
             }
         });
         /**
@@ -121,7 +139,6 @@ public class WatingPatientFragment extends BaseFragment {
             }
         }, 100);
     }
-
     @Override
     public int getContentLayout() {
         return R.layout.fragment_watingpatient;

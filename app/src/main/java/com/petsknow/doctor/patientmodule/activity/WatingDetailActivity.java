@@ -25,6 +25,7 @@ import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.patientmodule.bean.WatingpatientBean;
+import com.petsknow.doctor.sessionmodule.activity.ChatActivity;
 import com.petsknow.doctor.usermodule.manger.UserManger;
 
 import org.xutils.common.Callback;
@@ -34,6 +35,7 @@ import org.xutils.x;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by yukuo on 2016/1/22.
@@ -53,52 +55,52 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
     private int id;
     private WatingpatientBean watingpatientBean;
     @Bind(R.id.iv_watingdetial_avator)   //头像
-    ImageView iv_watingdetial_avator;
+            ImageView iv_watingdetial_avator;
     @Bind(R.id.tv_watingdetailusername) //用户名字
-    TextView tv_watingdetailusername;
+            TextView tv_watingdetailusername;
     @Bind(R.id.tv_watingdetaildesc)  //描述信息
-    TextView tv_watingdetaildesc;
+            TextView tv_watingdetaildesc;
     @Bind(R.id.ll_watingdetailphoto)        //照片信息
-    LinearLayout ll_watingdetailphoto;
+            LinearLayout ll_watingdetailphoto;
 
     @Bind(R.id.tv_watingdetail_nohave) //没有照片的信息展示
-    TextView tv_watingdetail_nohave;
+            TextView tv_watingdetail_nohave;
 
     @Bind(R.id.iv_watingdetail_photoone)  //第一个照片
-    ImageView iv_watingdetail_photoone;
+            ImageView iv_watingdetail_photoone;
 
     @Bind(R.id.iv_watingdetail_phototwo)  //第二个照片
-    ImageView iv_watingdetail_phototwo;
+            ImageView iv_watingdetail_phototwo;
 
     @Bind(R.id.iv_watingdetail_photothree)  //第三个照片
-    ImageView iv_watingdetail_photothree;
+            ImageView iv_watingdetail_photothree;
     private Intent intent;
     private ImageOptions options;
     private String avator;
     private ImageOptions options02;
     @Bind(R.id.tv_watingdetail_pet_name) //宠物姓名
-    TextView tv_watingdetail_pet_name;
+            TextView tv_watingdetail_pet_name;
 
     @Bind(R.id.tv_watingdetail_pet_breed)  //宠物品种
-    TextView tv_watingdetail_pet_breed;
+            TextView tv_watingdetail_pet_breed;
 
     @Bind(R.id.tv_watingdetail_pet_age)  //宠物年龄
-    TextView tv_watingdetail_pet_age;
+            TextView tv_watingdetail_pet_age;
 
     @Bind(R.id.tv_wating_detail_pet_sterrilization) //绝育状态
-    TextView tv_wating_detail_pet_sterrilization;
+            TextView tv_wating_detail_pet_sterrilization;
 
     @Bind(R.id.tv_watingdetail_pet_in_parasite)  //体内驱虫
-    TextView tv_watingdetail_pet_in_parasite;
+            TextView tv_watingdetail_pet_in_parasite;
 
     @Bind(R.id.tv_watingdetail_pet_needle)  //联苗针时间
-    TextView tv_watingdetail_pet_needle;
+            TextView tv_watingdetail_pet_needle;
     @Bind(R.id.tv_watingdetail_pet_gender)  //性别
-    TextView tv_watingdetail_pet_gender;
+            TextView tv_watingdetail_pet_gender;
     @Bind(R.id.tv_watingdetail_pet_rabies_vaccine)  //狂犬疫苗
-    TextView tv_watingdetail_pet_rabies_vaccine;
+            TextView tv_watingdetail_pet_rabies_vaccine;
     @Bind(R.id.tv_watingdetail_pet_out_parasite)  //体外驱虫
-    TextView tv_watingdetail_pet_out_parasite;
+            TextView tv_watingdetail_pet_out_parasite;
 
     @Override
     public void initdata(Bundle extras) {
@@ -234,11 +236,18 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
 
             }
         });
+        //跳转页面
+        intent = new Intent(WatingDetailActivity.this, ChatActivity.class);
+        intent.putExtra("toChatUsername", watingpatientBean.getData().get(0).getEasemobName());//聊天对方的环信账号
+        intent.putExtra("id", watingpatientBean.getData().get(0).getId());//问诊单id
+        intent.putExtra("avator", watingpatientBean.getData().get(0).getAvatarUrl());//对方用户的头像
+        startActivity(intent);
+        EventBus.getDefault().post("Admissions");
+        finish();
     }
-
     /*
-    发送一条消息
-     */
+            发送一条消息
+             */
     private void sendmessage() {
         //获取到与聊天人的会话对象。参数username为聊天人的userid或者groupid，后文中的username皆是如此
         EMConversation conversation = EMChatManager.getInstance().getConversation(UserManger.getUserEaseMobName());

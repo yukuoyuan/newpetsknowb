@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by yukuo on 2016/1/21.
@@ -82,6 +83,24 @@ public class SessionListFragment extends BaseFragment {
                 getActivity().startActivity(intent);
             }
         });
+    }
+
+    public void onEvent(String event) {
+        if (event.equals("Admissions")) {
+            getseesiondata();
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

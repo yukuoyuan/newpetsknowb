@@ -36,6 +36,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by yukuo on 2016/1/21.
@@ -94,6 +95,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 });
             }
         });
+    }
+
+    public void onEvent(String event) {
+        if (event.equals("Admissions")){
+            rb_ask.setChecked(true);
+            vp_main.setCurrentItem(0);
+        }
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -205,5 +218,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(msgReceiver);
+        EventBus.getDefault().unregister(this);
+
     }
 }

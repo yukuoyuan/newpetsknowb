@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by yukuo on 2016/1/22.
@@ -59,7 +60,22 @@ public class PatientActivity extends BaseActivity implements View.OnClickListene
         vp_patient.setAdapter(myPatientPagerAdapter);
         tab_patient.setupWithViewPager(vp_patient);
     }
+    public void onEvent(String event) {
+        if (event.equals("Admissions")){
+            finish();
+        }
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
     @Override
     public int getContentLayout() {
         return R.layout.activity_patient;

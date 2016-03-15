@@ -25,4 +25,10 @@ public class Constant {
     public static int FROMTXT = 3;
     //接受图片类型
     public static int FROMIMAGE = 4;
+    //打开待珍详情的意图
+    public static int STARTWATINGDETAILFORRESULT=10001;
+    //打开待珍列表页面的意图
+    public static int STARTWATINGLISTFORRESULT=10002;
+    //打开聊天页面的意图
+    public static int STARTCHATFORRESULT=10003;
 }
