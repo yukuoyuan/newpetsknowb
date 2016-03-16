@@ -15,6 +15,8 @@ public class Constant {
     public static String USEREASEMOBNAME = "USEREASEMOBNAME";
     //用户头像
     public static String USERAVATOR = "USERAVATOR";
+    //用户真实名字
+    public static String USERTRUENAME = "USERTRUENAME";
     //环信登录密码
     public static String EASEMOBNAMEPWD = "petsknow";
     //发送文字类型
@@ -25,10 +27,8 @@ public class Constant {
     public static int FROMTXT = 3;
     //接受图片类型
     public static int FROMIMAGE = 4;
-    //打开待珍详情的意图
-    public static int STARTWATINGDETAILFORRESULT=10001;
-    //打开待珍列表页面的意图
-    public static int STARTWATINGLISTFORRESULT=10002;
-    //打开聊天页面的意图
-    public static int STARTCHATFORRESULT=10003;
+    //打开编辑的意图
+    public static int STARTEDITINFOFORRESULT=10001;
+    //打开设置的意图
+    public static int STARTSETINGFORRESULT=10002;
 }

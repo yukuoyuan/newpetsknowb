@@ -14,6 +14,7 @@ import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.commonmodule.view.MyListview;
 import com.petsknow.doctor.mainmodule.bean.SeesionBean;
 import com.petsknow.doctor.sessionmodule.activity.ChatActivity;
+import com.petsknow.doctor.sessionmodule.activity.EditAegrotatActivity;
 import com.petsknow.doctor.sessionmodule.adapter.MyListviewAdapter;
 import com.petsknow.doctor.usermodule.manger.UserManger;
 
@@ -58,6 +59,12 @@ public class SessionListFragment extends BaseFragment {
                 intent.putExtra("toChatUsername", list01.get(position).getEasemobName());//聊天对方的环信账号
                 intent.putExtra("id", list01.get(position).getId());//问诊单id
                 intent.putExtra("avator", list01.get(position).getAvatarUrl());//对方用户的头像
+                intent.putExtra("time", list01.get(position).getCreatingTime());//问诊时间
+                intent.putExtra("desc", list01.get(position).getDescription());//描述信息
+                intent.putExtra("petname", list01.get(position).getPetsVo().getName());//宠物名字
+                intent.putExtra("petid", list01.get(position).getPetsVo().getId());//宠物id
+                intent.putExtra("sessionid", list01.get(position).getSessionId());//会话id
+                intent.putExtra("ownerid", list01.get(position).getOwnerId());//所属用户的id
                 L.e("聊天人的环信账号01", list01.get(position).getEasemobName() + "**" + list01.get(position).getId());
                 getActivity().startActivity(intent);
             }
@@ -65,22 +72,21 @@ public class SessionListFragment extends BaseFragment {
         mlv_session_loading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                intent = new Intent(getActivity(), ChatActivity.class);
+                intent = new Intent(getActivity(), EditAegrotatActivity.class);
+                intent.putExtra("id", list02.get(position).getId());//问诊单id
                 intent.putExtra("toChatUsername", list02.get(position).getEasemobName());
-                intent.putExtra("id", list02.get(position).getId());
-                intent.putExtra("avator", list02.get(position).getAvatarUrl());//对方用户的头像
-                L.e("聊天人的环信账号02", list02.get(position).getEasemobName());
+                intent.putExtra("time", list02.get(position).getCreatingTime());//问诊时间
+                intent.putExtra("desc", list02.get(position).getDescription());//描述信息
+                intent.putExtra("petname", list02.get(position).getPetsVo().getName());//宠物名字
+                intent.putExtra("petid", list02.get(position).getPetsVo().getId());//宠物id
+                intent.putExtra("sessionid", list02.get(position).getSessionId());//会话id
+                intent.putExtra("ownerid", list02.get(position).getOwnerId());//所属用户的id
                 getActivity().startActivity(intent);
             }
         });
         mlv_session_done.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("toChatUsername", list03.get(position).getEasemobName());
-                intent.putExtra("id", list03.get(position).getId());
-                L.e("聊天人的环信账号03", list03.get(position).getEasemobName());
-                getActivity().startActivity(intent);
             }
         });
     }

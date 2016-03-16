@@ -79,6 +79,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             // 显示帐号在其他设备登陆
                             L.e("环信连接状态", "帐号在其他设备登陆");
                             UserManger.setLogin(false);
+                            EMChatManager.getInstance().logout();//此方法为同步方法
                             Intent intent = new Intent(MainActivity.this, SplashActivity.class);
                             startActivity(intent);
                             finish();
@@ -149,6 +150,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         fragments.add(new SessionListFragment());
         fragments.add(new InfoFragment());
         fragments.add(new UserFragment());
+        vp_main.setOffscreenPageLimit(2);
         MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragments);
         vp_main.setAdapter(myPagerAdapter);
         vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

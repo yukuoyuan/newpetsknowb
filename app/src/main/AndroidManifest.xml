@@ -78,6 +78,22 @@
         <activity
             android:name=".commonmodule.view.imageselector.MultiImageSelectorActivity"
             android:screenOrientation="portrait" />
+        <!--这是一个编辑诊断书的页面-->
+        <activity
+            android:name=".sessionmodule.activity.EditAegrotatActivity"
+            android:screenOrientation="portrait" />
+        <!--编辑信息的页面-->
+        <activity
+            android:name=".sessionmodule.activity.EditInfoActivity"
+            android:screenOrientation="portrait" />
+        <!--这是一个设置页面-->
+        <activity
+            android:name=".usermodule.activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <!--这是一个显示网页的界面-->
+        <activity
+            android:name=".commonmodule.activity.WebActivity"
+            android:screenOrientation="portrait" />
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"

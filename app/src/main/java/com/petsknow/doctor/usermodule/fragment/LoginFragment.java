@@ -153,5 +153,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         UserManger.saveUserId(loginBean.getData().get(0).getId());
         UserManger.saveUserEaseMobName(loginBean.getData().get(0).getEasemobName());
         UserManger.saveUserAvaturl(loginBean.getData().get(0).getAvatarUrl());
+        UserManger.saveUserTrueName(loginBean.getData().get(0).getTrueName());
     }
 }

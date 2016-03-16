@@ -1,7 +1,349 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-</LinearLayout>
+    <include
+        android:id="@+id/ll_medical_writetoolbar"
+        layout="@layout/public_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/ll_1_medical_case"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_medical_writetoolbar"
+        android:layout_marginBottom="22dp"
+        android:layout_marginTop="22dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宠知道健康咨询诊断书"
+            android:textColor="@color/color_323030"
+            android:textSize="19sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="57dp"
+            android:layout_marginRight="57dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/color_c8c4c2" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="病历号 "
+                    android:textColor="@color/color_323030"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_editmedical_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXX-XXXXXX"
+                    android:textColor="@color/color_1ebda3"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="问诊时间 "
+                    android:textColor="@color/color_323030"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_editmedical_inquiry_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="yyyy-MM-dd HH:mm"
+                    android:textColor="@color/color_1ebda3"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_editmedical_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_1_medical_case"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/drw_1_writing_medical_case_background"
+        android:orientation="vertical"
+        android:paddingBottom="1px">
+
+        <RelativeLayout
+            android:id="@+id/rl_editmedical_pet_information"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/drw_1_writing_medical_case_item_background">
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_left_one"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@drawable/drw_1_medical_case_left_up_grey" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_pet_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="宠物信息:"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_right_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/drw_1_writing_medical_case_right_arrow" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_pet_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@id/iv_1_wmc_right_arrow"
+                android:layout_toRightOf="@id/tv_1_wmc_pet_information"
+                android:background="@null"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_c8c4c2" />
+
+        <RelativeLayout
+            android:id="@+id/rl_editmediacal_description"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/drw_1_writing_medical_case_item_background">
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_left_two"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@drawable/drw_1_medical_case_left_grey" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_description_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="主诉信息:"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_right_arrow_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/drw_1_writing_medical_case_right_arrow" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_pet_owner_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@id/iv_1_wmc_right_arrow_two"
+                android:layout_toRightOf="@id/tv_1_wmc_description_information"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_c8c4c2" />
+
+        <RelativeLayout
+            android:id="@+id/rl_editmediacal_first_result"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/drw_1_writing_medical_case_item_background">
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_left_three"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@drawable/drw_1_medical_case_left_grey" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_first_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="初诊信息:"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_right_arrow_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/drw_1_writing_medical_case_right_arrow" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_doctor_first_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@id/iv_1_wmc_right_arrow_three"
+                android:layout_toRightOf="@id/tv_1_wmc_first_result"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_c8c4c2" />
+
+        <RelativeLayout
+            android:id="@+id/rl_editmediacal_doctor_proposal"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/drw_1_writing_medical_case_item_background">
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_left_four"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@drawable/drw_1_medical_case_left_down_grey" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_proposal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="建议方案:"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/iv_1_wmc_right_arrow_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/drw_1_writing_medical_case_right_arrow" />
+
+            <TextView
+                android:id="@+id/tv_1_wmc_doctor_proposal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@id/iv_1_wmc_right_arrow_four"
+                android:layout_toRightOf="@id/tv_1_wmc_proposal"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_323030"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/ll_editmedical_information"
+        android:layout_gravity="right"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="医师 :"
+            android:textColor="@color/color_7e7e7e"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_editmedicaldoctor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XX"
+            android:textColor="@color/color_323030"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_send_medical_case"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/drw_1_evaluation_physicians_submit_background"
+        android:text="发送诊断书,并结束问诊"
+        android:textColor="@android:color/white"
+        android:textSize="17sp" />
+</RelativeLayout>

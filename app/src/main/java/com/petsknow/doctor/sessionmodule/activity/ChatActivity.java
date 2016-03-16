@@ -95,12 +95,25 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     private NewMessageBroadcastReceiver msgReceiver;
     private String userAvator;
     private static final int INTENT_REQUEST_GET_IMAGES = 2;
+    private long time;
+    private String desc;
+    private String petname;
+    private int petid;
+    private int sessionid;
+    private int ownerid;
+    private Intent intent;
 
     @Override
     public void initdata(Bundle extras) {
         toChatUsername = extras.getString("toChatUsername");
         illnessid = extras.getInt("id");
         userAvator = extras.getString("avator");
+        time = extras.getLong("time");
+        desc = extras.getString("desc");
+        petname = extras.getString("petname");
+        petid = extras.getInt("petid");
+        sessionid = extras.getInt("sessionid");
+        ownerid = extras.getInt("ownerid");
         publicTitlebg.setVisibility(View.GONE);
         ibMainMypatient.setVisibility(View.GONE);
         tvRight.setVisibility(View.VISIBLE);
@@ -229,6 +242,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
                 break;
         }
     }
+
     /**
      * 这是一个获取图片路径信息的方法
      *
@@ -374,6 +388,16 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
         EMChatManager.getInstance().sendMessage(cmdMsg, new EMCallBack() {
             @Override
             public void onSuccess() {
+                intent = new Intent(ChatActivity.this, EditAegrotatActivity.class);
+                intent.putExtra("id", illnessid);//问诊单id
+                intent.putExtra("toChatUsername", toChatUsername);
+                intent.putExtra("time", time);//问诊时间
+                intent.putExtra("desc", desc);//描述信息
+                intent.putExtra("petname", petname);//宠物名字
+                intent.putExtra("petid", petid);//宠物id
+                intent.putExtra("sessionid", sessionid);//会话id
+                intent.putExtra("ownerid", ownerid);//所属用户的id
+                startActivity(intent);
                 finish();
             }
 

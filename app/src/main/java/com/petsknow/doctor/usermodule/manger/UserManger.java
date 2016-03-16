@@ -59,6 +59,24 @@ public class UserManger {
     }
 
     /**
+     * 这是一个保存用户真是名字的方法
+     *
+     * @param name
+     */
+    public static void saveUserTrueName(String name) {
+        SPUtil.putString(context, Constant.USERTRUENAME, name);
+    }
+
+    /**
+     * 这是一个获取用户真实名字的方法
+     *
+     * @return
+     */
+    public static String getUserTrueName() {
+        return SPUtil.getString(context, Constant.USERTRUENAME, "");
+    }
+
+    /**
      * 获取一个用户头像的方法
      *
      * @return

@@ -88,8 +88,10 @@ public class WatingPatientFragment extends BaseFragment {
 
             @Override
             public void onError(Throwable throwable, boolean b) {
-                srl_wating_patient.setRefreshing(false);
-                T.show(getActivity(), "网络连接超时!请稍后再试", 0);
+                if(srl_wating_patient!=null){
+                    srl_wating_patient.setRefreshing(false);
+                    T.show(getActivity(), "网络连接超时!请稍后再试", 0);
+                }
             }
 
             @Override

@@ -241,10 +241,17 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
         intent.putExtra("toChatUsername", watingpatientBean.getData().get(0).getEasemobName());//聊天对方的环信账号
         intent.putExtra("id", watingpatientBean.getData().get(0).getId());//问诊单id
         intent.putExtra("avator", watingpatientBean.getData().get(0).getAvatarUrl());//对方用户的头像
+        intent.putExtra("time", watingpatientBean.getData().get(0).getCreatingTime());//问诊时间
+        intent.putExtra("desc", watingpatientBean.getData().get(0).getDescription());//描述信息
+        intent.putExtra("petname", watingpatientBean.getData().get(0).getPetsVo().getName());//宠物名字
+        intent.putExtra("petid", watingpatientBean.getData().get(0).getPetsVo().getId());//宠物id
+        intent.putExtra("sessionid", watingpatientBean.getData().get(0).getSessionId());//会话id
+        intent.putExtra("ownerid", watingpatientBean.getData().get(0).getOwnerId());//所属用户的id
         startActivity(intent);
         EventBus.getDefault().post("Admissions");
         finish();
     }
+
     /*
             发送一条消息
              */

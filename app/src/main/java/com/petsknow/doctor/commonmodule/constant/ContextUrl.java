@@ -8,10 +8,7 @@ import com.petsknow.doctor.commonmodule.utils.IsRelease;
  */
 public class ContextUrl {
 
-    //测试地址
-    // public static String BaseUrl = "http://101.200.1.168:8080/pets_know_api";
-    //正式地址
-    //  public static String BaseUrl = "http://182.92.31.72/pets_know_api";
+
     public static String BaseUrl() {
         if (IsRelease.IsRelease) {
             //正式地址
@@ -38,4 +35,12 @@ public class ContextUrl {
     public static String reception = "/inquiry/confirm_inquiry_bill";
     //结束当前会话
     public static String oversession = "/inquiry/finish_inquiry_bill";
+    //发送诊断书
+    public static String sendMedical="/inquiry/save_illness_case";
+    //获取用户信息的方法
+    public static String getdoctorinfo="/doctor/find_doctor_by_id";
+    //关于我们
+    public static String aboutme="/base/open/about_us";
+    //退出登录
+    public static String logout="/doctor/open/doctor/reg";
 }

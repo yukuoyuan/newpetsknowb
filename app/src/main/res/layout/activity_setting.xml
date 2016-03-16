@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/public_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_update_password"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:drawableRight="@drawable/drw_1_writing_medical_case_right_arrow"
+        android:gravity="center_vertical"
+        android:text="修改密码" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_c8c4c2" />
+
+    <TextView
+        android:id="@+id/tv_login_off"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:drawableRight="@drawable/drw_1_writing_medical_case_right_arrow"
+        android:gravity="center_vertical"
+        android:text="账号登出" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_c8c4c2" />
+
+    <TextView
+        android:id="@+id/tv_pet_know_about"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:drawableRight="@drawable/drw_1_writing_medical_case_right_arrow"
+        android:gravity="center_vertical"
+        android:text="关于宠知道" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_c8c4c2" />
+</LinearLayout>
