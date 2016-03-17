@@ -134,6 +134,7 @@ public class EditAegrotatActivity extends BaseActivity implements View.OnClickLi
                 //跳转至初诊信息页面
                 intent = new Intent(EditAegrotatActivity.this, EditInfoActivity.class);
                 type = 2;
+                intent.putExtra("toChatUsername", tochartusername);
                 intent.putExtra("type", type);
                 startActivityForResult(intent, Constant.STARTEDITINFOFORRESULT);
                 break;
@@ -141,6 +142,7 @@ public class EditAegrotatActivity extends BaseActivity implements View.OnClickLi
                 //跳转至建议方案页面
                 intent = new Intent(EditAegrotatActivity.this, EditInfoActivity.class);
                 type = 3;
+                intent.putExtra("toChatUsername", tochartusername);
                 intent.putExtra("type", type);
                 startActivityForResult(intent, Constant.STARTEDITINFOFORRESULT);
                 break;

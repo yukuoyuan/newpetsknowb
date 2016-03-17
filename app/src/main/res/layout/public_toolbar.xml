@@ -1,54 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/themecolor">
+    android:background="@color/themecolor"
+    android:orientation="vertical">
 
-    <ImageButton
-        android:paddingLeft="10dp"
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:background="@android:color/transparent"
-        android:src="@drawable/public_back"
+    <View
+        android:id="@+id/v_ptimary"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:background="@color/themecolor"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tv_public_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="@android:color/white"
-        android:textSize="19sp"
-        android:visibility="gone" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-    <ImageView
-        android:id="@+id/public_titlebg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/public_titlebg" />
+        <ImageButton
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingLeft="10dp"
+            android:src="@drawable/public_back"
+            android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tv_right"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="15dp"
-        android:text="@string/admissions"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_public_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            android:visibility="gone" />
 
-    <ImageButton
-        android:id="@+id/ib_main_mypatient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/main_mypatient"
-        android:padding="10dp" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/public_titlebg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/public_titlebg" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="@string/admissions"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/ib_main_mypatient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/main_mypatient"
+            android:padding="10dp" />
+    </RelativeLayout>
+</LinearLayout>

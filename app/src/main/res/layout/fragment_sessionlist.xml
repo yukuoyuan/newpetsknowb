@@ -1,95 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/srfl_seesionlist"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/color_eae4e1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:src="@drawable/session_ing" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:text="@string/session_ing"
-                android:textColor="@color/color_564c46"
-                android:textSize="12sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/color_eae4e1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/session_ing" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:text="@string/session_ing"
+                    android:textColor="@color/color_564c46"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <com.petsknow.doctor.commonmodule.view.MyListview
+                android:id="@+id/mlv_session_ing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/color_eae4e1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/session_ing" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:text="@string/session_loading"
+                    android:textColor="@color/color_564c46"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <com.petsknow.doctor.commonmodule.view.MyListview
+                android:id="@+id/mlv_session_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/color_eae4e1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/session_done" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:text="@string/session_done"
+                    android:textColor="@color/color_564c46"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <com.petsknow.doctor.commonmodule.view.MyListview
+                android:id="@+id/mlv_session_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
-        <com.petsknow.doctor.commonmodule.view.MyListview
-            android:id="@+id/mlv_session_ing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/color_eae4e1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:src="@drawable/session_ing" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:text="@string/session_loading"
-                android:textColor="@color/color_564c46"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <com.petsknow.doctor.commonmodule.view.MyListview
-            android:id="@+id/mlv_session_loading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/color_eae4e1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:src="@drawable/session_done" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:text="@string/session_done"
-                android:textColor="@color/color_564c46"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <com.petsknow.doctor.commonmodule.view.MyListview
-            android:id="@+id/mlv_session_done"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.easemob.chat.EMChat;
+import com.petsknow.doctor.commonmodule.utils.IsRelease;
 
 import org.xutils.x;
 
@@ -26,12 +27,11 @@ public class PetsknowDoctorApplication extends Application {
         x.Ext.init(this);
         //有第三方服务需要调用此方法(环信)
         initeasemobname();
-        //初始化环信
-        initeasemobnemasecond();
     }
 
     private void initeasemobnemasecond() {
         EMChat.getInstance().init(context);
+        EMChat.getInstance().setDebugMode(!IsRelease.IsRelease);
     }
 
     private void initeasemobname() {
@@ -40,6 +40,8 @@ public class PetsknowDoctorApplication extends Application {
         if (processAppName == null || !processAppName.equalsIgnoreCase("com.petsknow.doctor")) {
             return;
         }
+        //初始化环信
+        initeasemobnemasecond();
     }
 
     private String getAppName(int pID) {

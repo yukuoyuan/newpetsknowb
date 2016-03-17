@@ -2,6 +2,7 @@ package com.petsknow.doctor.sessionmodule.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -40,6 +41,8 @@ public class SessionListFragment extends BaseFragment {
     MyListview mlv_session_loading;
     @Bind(R.id.mlv_session_done)
     MyListview mlv_session_done;
+    @Bind(R.id.srfl_seesionlist)
+    SwipeRefreshLayout srfl_seesionlist;
     private SeesionBean seesionBean;
     private List<SeesionBean.DataEntity> list01 = new ArrayList<SeesionBean.DataEntity>();
     private List<SeesionBean.DataEntity> list02 = new ArrayList<SeesionBean.DataEntity>();
@@ -52,6 +55,12 @@ public class SessionListFragment extends BaseFragment {
     @Override
     public void initdata(Bundle arguments) {
         getseesiondata();
+        srfl_seesionlist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getseesiondata();
+            }
+        });
         mlv_session_ing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -118,6 +127,7 @@ public class SessionListFragment extends BaseFragment {
      * 获取会话列表
      */
     public void getseesiondata() {
+
         String url = ConstantUrl.BaseUrl() + ConstantUrl.getallseesionlist;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
@@ -125,6 +135,7 @@ public class SessionListFragment extends BaseFragment {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String o) {
+                srfl_seesionlist.setRefreshing(false);
                 L.e("所有会话列表", o);
                 seesionBean = JSON.parseObject(o, SeesionBean.class);
                 if (seesionBean.getStatus() == 0) {
@@ -153,6 +164,7 @@ public class SessionListFragment extends BaseFragment {
             @Override
             public void onError(Throwable throwable, boolean b) {
                 T.show(getActivity(), "网络请求超时,请稍后再试", 0);
+                srfl_seesionlist.setRefreshing(false);
                 L.e("所有会话列表的错误信息", throwable.toString());
             }
 

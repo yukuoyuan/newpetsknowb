@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/public_toolbar" />
+    <include
+        android:id="@+id/ic_chart"
+        layout="@layout/public_toolbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lv_chart"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_below="@id/ic_chart"
+        android:orientation="vertical">
 
-    <include layout="@layout/chat_footbar" />
-</LinearLayout>
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/lv_chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <include layout="@layout/chat_footbar" />
+    </LinearLayout>
+
+</RelativeLayout>

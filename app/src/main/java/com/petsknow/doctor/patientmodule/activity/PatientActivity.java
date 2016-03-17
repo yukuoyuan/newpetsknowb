@@ -51,7 +51,7 @@ public class PatientActivity extends BaseActivity implements View.OnClickListene
         tv_public_title.setText("患者");
         fragments.add(new WatingPatientFragment());
         fragments.add(new MypatientFragment());
-        list.add("待珍");
+        list.add("待诊");
         list.add("我的患者");
         tab_patient.setTabMode(TabLayout.MODE_FIXED);
         tab_patient.addTab(tab_patient.newTab().setText(list.get(0)));

@@ -33,4 +33,6 @@ public class Constant {
     public static int STARTEDITINFOFORRESULT=10001;
     //打开设置的意图
     public static int STARTSETINGFORRESULT=10002;
+    //打开聊天记录的意图
+    public static int STARTSEEIONCOOKIEFORRESULT=1003;
 }
