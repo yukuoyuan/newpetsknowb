@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.petsknow.doctor.R;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -30,17 +30,26 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
     ImageButton ibMainMypatient;
     @Bind(R.id.wv_myweb)
     WebView wvMyweb;
+    private int type;
 
     @Override
     public void initdata(Bundle extras) {
+        type = extras.getInt("type");
         publicTitlebg.setVisibility(View.GONE);
         ibMainMypatient.setVisibility(View.GONE);
         tvRight.setVisibility(View.GONE);
         ivBack.setVisibility(View.VISIBLE);
         tvPublicTitle.setVisibility(View.VISIBLE);
-        tvPublicTitle.setText("关于我们");
-        String url = ContextUrl.BaseUrl() + ContextUrl.aboutme;
-        wvMyweb.loadUrl(url);
+        if (type == 1) {
+            tvPublicTitle.setText("关于我们");
+            String url = ConstantUrl.BaseUrl() + ConstantUrl.aboutme;
+            wvMyweb.loadUrl(url);
+        } else if (type == 2) {
+            tvPublicTitle.setText("用户协议");
+            String url = ConstantUrl.BaseUrl() + ConstantUrl.protocol;
+            wvMyweb.loadUrl(url);
+        }
+
     }
 
     @Override

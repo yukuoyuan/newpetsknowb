@@ -6,7 +6,7 @@ import com.petsknow.doctor.commonmodule.utils.IsRelease;
  * Created by yukuo on 2016/1/21.
  * 这是一个管理线上线下版本请求网络路径的管理类
  */
-public class ContextUrl {
+public class ConstantUrl {
 
 
     public static String BaseUrl() {
@@ -41,10 +41,14 @@ public class ContextUrl {
     public static String getdoctorinfo = "/doctor/find_doctor_by_id";
     //关于我们
     public static String aboutme = "/base/open/about_us";
+    //用户协议
+    public static String protocol="/base/open/doctor_protocol";
     //退出登录
     public static String logout = "/doctor/open/doctor/reg";
     //发送验证码
     public static String sendvcode = "/base/open/sms/sms_send";
     //修改密码的方法
     public static String updatepwd = "/doctor/modify_passwd";
+    //注册
+    public static String regist="/doctor/open/doctor/reg";
 }

@@ -20,7 +20,7 @@ import com.easemob.chat.TextMessageBody;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.activity.PhotoBrowerActivity;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -159,17 +159,17 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.iv_watingdetail_photoone:
                 intent = new Intent(WatingDetailActivity.this, PhotoBrowerActivity.class);
-                intent.putExtra("url", ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0));
+                intent.putExtra("url", ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0));
                 startActivity(intent);
                 break;
             case R.id.iv_watingdetail_phototwo:
                 intent = new Intent(WatingDetailActivity.this, PhotoBrowerActivity.class);
-                intent.putExtra("url", ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1));
+                intent.putExtra("url", ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1));
                 startActivity(intent);
                 break;
             case R.id.iv_watingdetail_photothree:
                 intent = new Intent(WatingDetailActivity.this, PhotoBrowerActivity.class);
-                intent.putExtra("url", ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(2));
+                intent.putExtra("url", ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(2));
                 startActivity(intent);
                 break;
         }
@@ -179,7 +179,7 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
      * 这是一个接诊的方法
      */
     private void reception() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.reception;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.reception;
         RequestParams params = new RequestParams(url);
         params.setAsJsonContent(true);
         params.addParameter("id", id);
@@ -290,7 +290,7 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
      * 获取问诊详情的界面
      */
     public void getwatingdetail() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.getwatingdetial;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.getwatingdetial;
         RequestParams params = new RequestParams(url);
         params.setAsJsonContent(true);
         params.addParameter("id", id);
@@ -333,7 +333,7 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
     private void initviewdata() {
         tv_watingdetailusername.setText(watingpatientBean.getData().get(0).getUserName());
         tv_watingdetaildesc.setText(watingpatientBean.getData().get(0).getDescription());
-        x.image().bind(iv_watingdetial_avator, ContextUrl.qiniu + avator, options02);
+        x.image().bind(iv_watingdetial_avator, ConstantUrl.qiniu + avator, options02);
         if (watingpatientBean.getData().get(0).getPhotos().size() == 0) {
             ll_watingdetailphoto.setVisibility(View.GONE);
             tv_watingdetail_nohave.setVisibility(View.VISIBLE);
@@ -344,20 +344,20 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
         //图片的展示
         int size = watingpatientBean.getData().get(0).getPhotos().size();
         if (size == 1) {
-            x.image().bind(iv_watingdetail_photoone, ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
+            x.image().bind(iv_watingdetail_photoone, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
             iv_watingdetail_photoone.setVisibility(View.VISIBLE);
             iv_watingdetail_phototwo.setVisibility(View.GONE);
             iv_watingdetail_photothree.setVisibility(View.GONE);
         } else if (size == 2) {
-            x.image().bind(iv_watingdetail_photoone, ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
-            x.image().bind(iv_watingdetail_phototwo, ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1), options);
+            x.image().bind(iv_watingdetail_photoone, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
+            x.image().bind(iv_watingdetail_phototwo, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1), options);
             iv_watingdetail_photoone.setVisibility(View.VISIBLE);
             iv_watingdetail_phototwo.setVisibility(View.VISIBLE);
             iv_watingdetail_photothree.setVisibility(View.GONE);
         } else if (size == 3) {
-            x.image().bind(iv_watingdetail_photoone, ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
-            x.image().bind(iv_watingdetail_phototwo, ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1), options);
-            x.image().bind(iv_watingdetail_photothree, ContextUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(2), options);
+            x.image().bind(iv_watingdetail_photoone, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
+            x.image().bind(iv_watingdetail_phototwo, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1), options);
+            x.image().bind(iv_watingdetail_photothree, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(2), options);
             iv_watingdetail_photoone.setVisibility(View.VISIBLE);
             iv_watingdetail_phototwo.setVisibility(View.VISIBLE);
             iv_watingdetail_photothree.setVisibility(View.VISIBLE);

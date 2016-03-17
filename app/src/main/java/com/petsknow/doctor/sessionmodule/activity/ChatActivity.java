@@ -36,7 +36,7 @@ import com.easemob.chat.TextMessageBody;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.bean.CommonBean;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
 import com.petsknow.doctor.commonmodule.utils.KeyBoardUtils;
 import com.petsknow.doctor.commonmodule.utils.L;
@@ -350,7 +350,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
      * 这是一个结束回话的方法
      */
     private void finshMessage() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.oversession;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.oversession;
         RequestParams params = new RequestParams(url);
         L.i("问诊id", illnessid + "");
         params.addParameter("id", illnessid);

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.Constant;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -64,7 +64,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void getmypersoninfo() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.getdoctorinfo;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.getdoctorinfo;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
         x.http().get(params, new Callback.CommonCallback<String>() {

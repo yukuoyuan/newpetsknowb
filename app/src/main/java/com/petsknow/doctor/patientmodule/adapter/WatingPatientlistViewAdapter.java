@@ -9,9 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.petsknow.doctor.R;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
-import com.petsknow.doctor.patientmodule.bean.MypatientBean;
 import com.petsknow.doctor.patientmodule.bean.WatingpatientBean;
 
 import org.xutils.image.ImageOptions;
@@ -89,7 +88,7 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
             myHolder.ll_nohavept.setVisibility(View.VISIBLE);
             myHolder.ll_havept.setVisibility(View.GONE);
             //用户头像
-            x.image().bind(myHolder.iv_nohavept_avator, ContextUrl.qiniu + list.get(position).getAvatarUrl(), options);
+            x.image().bind(myHolder.iv_nohavept_avator, ConstantUrl.qiniu + list.get(position).getAvatarUrl(), options);
 
             //用户名字
             myHolder.tv_nohavept_username.setText(list.get(position).getUserName());
@@ -115,9 +114,9 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
             myHolder.ll_nohavept.setVisibility(View.GONE);
             myHolder.ll_havept.setVisibility(View.VISIBLE);
             //用户头像
-            x.image().bind(myHolder.iv_havept_avator, ContextUrl.qiniu + list.get(position).getAvatarUrl(), options);
+            x.image().bind(myHolder.iv_havept_avator, ConstantUrl.qiniu + list.get(position).getAvatarUrl(), options);
             //问诊图像
-            x.image().bind(myHolder.iv_havept_photo, ContextUrl.qiniu + list.get(position).getPhotos().get(0), options02);
+            x.image().bind(myHolder.iv_havept_photo, ConstantUrl.qiniu + list.get(position).getPhotos().get(0), options02);
             //用户名字
             myHolder.tv_havept_username.setText(list.get(position).getUserName());
             //宠物名字和年龄

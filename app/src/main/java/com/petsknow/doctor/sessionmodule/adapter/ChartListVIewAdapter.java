@@ -16,7 +16,7 @@ import com.easemob.util.DateUtils;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.PhotoBrowerActivity;
 import com.petsknow.doctor.commonmodule.constant.Constant;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.sessionmodule.utils.SmileUtils;
 
@@ -157,7 +157,7 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
             TextMessageBody txtbody = (TextMessageBody) list.get(position).getBody();
             String content = txtbody.getMessage();
             ((FromTxtVIewHolder) holder).tv_item_from_txt.setText(SmileUtils.getSmiledText(activity, content));
-            x.image().bind(((FromTxtVIewHolder) holder).from_person_avator, ContextUrl.qiniu + avator, options);
+            x.image().bind(((FromTxtVIewHolder) holder).from_person_avator, ConstantUrl.qiniu + avator, options);
             // 两条消息时间离得如果稍长，显示时间
             if (position == 0) {
 
@@ -173,7 +173,7 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
             final ImageMessageBody imageMessageBody = (ImageMessageBody) list.get(position).getBody();
             L.i("图片地址接受者", imageMessageBody.getLocalUrl() + "****" + imageMessageBody.getRemoteUrl());
             x.image().bind(((FromImageVIewHolder) holder).iv_item_from_image, imageMessageBody.getRemoteUrl(), optionsmsg);
-            x.image().bind(((FromImageVIewHolder) holder).from_person_avator, ContextUrl.qiniu + avator, options);
+            x.image().bind(((FromImageVIewHolder) holder).from_person_avator, ConstantUrl.qiniu + avator, options);
             ((FromImageVIewHolder) holder).iv_item_from_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

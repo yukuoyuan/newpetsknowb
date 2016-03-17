@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -118,7 +118,7 @@ public class SessionListFragment extends BaseFragment {
      * 获取会话列表
      */
     public void getseesiondata() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.getallseesionlist;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.getallseesionlist;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
         params.addHeader("dt_id", UserManger.getUserId() + "");

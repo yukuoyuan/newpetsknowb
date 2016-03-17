@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.petsknow.doctor.R;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.mainmodule.bean.SeesionBean;
@@ -90,7 +90,7 @@ public class MyListviewAdapter extends BaseAdapter {
          * 设置头像的展示
          */
         L.i("用户头像", list.get(position).getAvatarUrl());
-        x.image().bind(myHolder.avaturl, ContextUrl.qiniu + list.get(position).getAvatarUrl(), options);
+        x.image().bind(myHolder.avaturl, ConstantUrl.qiniu + list.get(position).getAvatarUrl(), options);
         return convertView;
     }
 

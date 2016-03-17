@@ -8,11 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.petsknow.doctor.R;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.patientmodule.bean.MypatientBean;
 
-import org.w3c.dom.Text;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
@@ -63,7 +62,7 @@ public class MyPatientlistViewAdapter extends BaseAdapter {
         /**
          * 头像
          */
-        x.image().bind(myHolder.avaturl, ContextUrl.qiniu + list.get(position).getPets().getPetsAvator(), options);
+        x.image().bind(myHolder.avaturl, ConstantUrl.qiniu + list.get(position).getPets().getPetsAvator(), options);
         //宠物名字
         myHolder.petname.setText(list.get(position).getPets().getName());
         //时间

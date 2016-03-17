@@ -29,4 +29,5 @@
     <string name="please_input_new_pwd_once">请重新输入新密码</string>
     <string name="get_verify_code">获取验证码</string>
     <string name="please_input_vcode">请输入验证码</string>
+    <string name="i_have_agree">我已同意</string>
 </resources>

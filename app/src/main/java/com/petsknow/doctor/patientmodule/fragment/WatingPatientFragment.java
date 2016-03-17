@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -63,7 +63,7 @@ public class WatingPatientFragment extends BaseFragment {
      * 这是一个获取患者列表的界面的方法
      */
     private void getwatingpatient() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.getwatingpatient;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.getwatingpatient;
         RequestParams params = new RequestParams(url);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override

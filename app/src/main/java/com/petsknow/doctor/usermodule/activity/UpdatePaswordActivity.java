@@ -3,7 +3,6 @@ package com.petsknow.doctor.usermodule.activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,7 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.bean.CommonBean;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.commonmodule.view.DelayButton;
@@ -50,8 +49,6 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
     EditText etUpdatePassworVcode;
     @Bind(R.id.bt_update_password_getvcode)
     DelayButton btUpdatePasswordGetvcode;
-    @Bind(R.id.bt_update_password_confirm)
-    Button btUpdatePasswordConfirm;
     private UpdatePasswordVcodeBean updatePasswordVcodeBean;
 
     @Override
@@ -62,7 +59,6 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
         ivBack.setVisibility(View.VISIBLE);
         tvPublicTitle.setVisibility(View.VISIBLE);
         tvPublicTitle.setText("修改密码");
-        btUpdatePasswordGetvcode.setOnClickListener(this);
         btUpdatePasswordGetvcode.setDelayListener(this);
         btUpdatePasswordGetvcode.setEnabled(true);
     }
@@ -118,7 +114,7 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
      * @param vcode
      */
     private void updatepasword(String newpwdfirst, String vcode) {
-        String url = ContextUrl.BaseUrl() + ContextUrl.updatepwd;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.updatepwd;
         RequestParams params = new RequestParams(url);
         String phone = UserManger.getUserPhone();
         params.addParameter("phone", phone);
@@ -157,7 +153,7 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
      * 发送验证码
      */
     private void sendvcode() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.sendvcode;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.sendvcode;
         RequestParams params = new RequestParams(url);
         params.addParameter("phone", UserManger.getUserPhone());
         params.addParameter("opt", "user_reg");
@@ -200,7 +196,7 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onFinish() {
-        if (btUpdatePasswordGetvcode!=null){
+        if (btUpdatePasswordGetvcode != null) {
             btUpdatePasswordGetvcode.setEnabled(true);
         }
     }

@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -55,7 +55,7 @@ public class MypatientFragment extends BaseFragment {
     }
 
     public void getmypatientdata() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.Mypatient;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.Mypatient;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
         x.http().get(params, new Callback.CommonCallback<String>() {

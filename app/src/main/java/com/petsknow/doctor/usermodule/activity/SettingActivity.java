@@ -13,7 +13,7 @@ import com.easemob.chat.EMChatManager;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.activity.WebActivity;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.usermodule.manger.UserManger;
@@ -85,6 +85,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.tv_pet_know_about:
                 //关于我们
                 intent = new Intent(SettingActivity.this, WebActivity.class);
+                intent.putExtra("type", 1);
                 startActivity(intent);
                 break;
         }
@@ -94,7 +95,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
      * 这是一个退出登录的方法
      */
     private void loginout() {
-        String url = ContextUrl.BaseUrl() + ContextUrl.logout;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.logout;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
         params.setAsJsonContent(true);

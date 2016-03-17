@@ -16,7 +16,7 @@ import com.easemob.chat.EMMessage;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.constant.Constant;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.commonmodule.utils.L;
@@ -186,7 +186,7 @@ public class EditAegrotatActivity extends BaseActivity implements View.OnClickLi
             T.showLong(PetsknowDoctorApplication.context, "建议方案不能为空..请输入建议方案....");
             return;
         }
-        String url = ContextUrl.BaseUrl() + ContextUrl.sendMedical;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.sendMedical;
         RequestParams params = new RequestParams(url);
         params.addParameter("doctorId", UserManger.getUserId());
         params.addParameter("petId", petid);//宠物id

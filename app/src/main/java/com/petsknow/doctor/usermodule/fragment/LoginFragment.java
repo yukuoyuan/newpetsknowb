@@ -2,7 +2,6 @@ package com.petsknow.doctor.usermodule.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,7 +13,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.Constant;
-import com.petsknow.doctor.commonmodule.constant.ContextUrl;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -40,6 +39,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     EditText et_login_password;
     private LoginBean loginBean;
     private Intent intent;
+    private Registfragment mRegisterFragment;
 
     @Override
     public void initdata(Bundle arguments) {
@@ -61,11 +61,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             case R.id.bt_forgetpassword:
                 break;
             case R.id.bt_login_regist:
-                Registfragment registfragment = new Registfragment();
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                FragmentTransaction tx = fm.beginTransaction();
-                tx.replace(R.id.fl_loginandgist, registfragment, "TWO");
-                tx.commit();
+                if (mRegisterFragment == null)
+                    mRegisterFragment = new Registfragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.rotatedown_right_in, R.anim.rotatedown_left_out);
+                fragmentTransaction.replace(R.id.fl_loginandgist, mRegisterFragment).commit();
                 break;
         }
     }
@@ -81,7 +81,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             T.show(getActivity(), "密码不能为空", 0);
             return;
         }
-        String url = ContextUrl.BaseUrl() + ContextUrl.login;
+        String url = ConstantUrl.BaseUrl() + ConstantUrl.login;
         RequestParams params = new RequestParams(url);
         params.addParameter("phone", phone);
         params.addParameter("password", pwd);
