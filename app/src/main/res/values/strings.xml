@@ -25,4 +25,8 @@
     <string name="preview">预览</string>
     <string name="msg_no_camera">没有系统相机</string>
     <string name="msg_amount_limit">已经达到最高选择数量</string>
+    <string name="please_input_new_pwd">请输入新密码</string>
+    <string name="please_input_new_pwd_once">请重新输入新密码</string>
+    <string name="get_verify_code">获取验证码</string>
+    <string name="please_input_vcode">请输入验证码</string>
 </resources>

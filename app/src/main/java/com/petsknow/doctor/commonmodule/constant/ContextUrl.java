@@ -36,11 +36,15 @@ public class ContextUrl {
     //结束当前会话
     public static String oversession = "/inquiry/finish_inquiry_bill";
     //发送诊断书
-    public static String sendMedical="/inquiry/save_illness_case";
+    public static String sendMedical = "/inquiry/save_illness_case";
     //获取用户信息的方法
-    public static String getdoctorinfo="/doctor/find_doctor_by_id";
+    public static String getdoctorinfo = "/doctor/find_doctor_by_id";
     //关于我们
-    public static String aboutme="/base/open/about_us";
+    public static String aboutme = "/base/open/about_us";
     //退出登录
-    public static String logout="/doctor/open/doctor/reg";
+    public static String logout = "/doctor/open/doctor/reg";
+    //发送验证码
+    public static String sendvcode = "/base/open/sms/sms_send";
+    //修改密码的方法
+    public static String updatepwd = "/doctor/modify_passwd";
 }

@@ -11,6 +11,8 @@ public class Constant {
     public static String ISLOGIN = "ISLOGIN";
     //用户id
     public static String USERID = "USERID";
+    //用户手机号
+    public static String USERPHONE="USERPHONE";
     //用户环信名字
     public static String USEREASEMOBNAME = "USEREASEMOBNAME";
     //用户头像

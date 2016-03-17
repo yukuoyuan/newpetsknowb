@@ -32,6 +32,24 @@ public class UserManger {
     }
 
     /**
+     * 这是一个获取用户电话的方法
+     *
+     * @return
+     */
+    public static String getUserPhone() {
+        return SPUtil.getString(context, Constant.USERPHONE, "");
+    }
+
+    /**
+     * 这是一个存储用户电话的方法
+     *
+     * @param phone
+     */
+    public static void saveUserPhone(String phone) {
+        SPUtil.putString(context, Constant.USERPHONE, phone);
+    }
+
+    /**
      * 这是一个存储用户环信账号名字的方法
      *
      * @param easemobname

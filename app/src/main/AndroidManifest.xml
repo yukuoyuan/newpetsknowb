@@ -94,6 +94,10 @@
         <activity
             android:name=".commonmodule.activity.WebActivity"
             android:screenOrientation="portrait" />
+        <!--这是一个修改密码的页面-->
+        <activity
+            android:name=".usermodule.activity.UpdatePaswordActivity"
+            android:screenOrientation="portrait" />
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"

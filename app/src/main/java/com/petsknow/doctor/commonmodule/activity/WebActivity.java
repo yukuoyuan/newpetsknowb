@@ -11,12 +11,13 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ContextUrl;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by yukuo on 2016/3/16.
  * 这是一个显示网页的界面
  */
-public class WebActivity extends BaseActivity {
+public class WebActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.iv_back)
     ImageButton ivBack;
     @Bind(R.id.tv_public_title)
@@ -38,12 +39,22 @@ public class WebActivity extends BaseActivity {
         ivBack.setVisibility(View.VISIBLE);
         tvPublicTitle.setVisibility(View.VISIBLE);
         tvPublicTitle.setText("关于我们");
-        String url = ContextUrl.BaseUrl()+ContextUrl.aboutme;
+        String url = ContextUrl.BaseUrl() + ContextUrl.aboutme;
         wvMyweb.loadUrl(url);
     }
 
     @Override
     public int getContentLayout() {
         return R.layout.activity_web;
+    }
+
+    @Override
+    @OnClick({R.id.iv_back})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_back:
+                onBackPressed();
+                break;
+        }
     }
 }

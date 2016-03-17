@@ -66,6 +66,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.tv_update_password:
                 //更改密码
+                intent = new Intent(SettingActivity.this, UpdatePaswordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_login_off:
                 //退出登录
