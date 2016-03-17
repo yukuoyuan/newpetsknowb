@@ -32,6 +32,7 @@ import butterknife.OnClick;
 
 /**
  * Created by yukuo on 2016/1/21.
+ * 这是一个注册页面
  */
 public class Registfragment extends BaseFragment implements View.OnClickListener, DelayButton.OnDelayListener {
 

@@ -1,7 +1,7 @@
 package com.petsknow.doctor.sessionmodule.bean;
 
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +30,7 @@ public class FaceList {
     }
 
     public void init() {
-        FaceContent[] faceContents = new Gson().fromJson(mFace, FaceContent[].class);
+        FaceContent[] faceContents = JSON.parseObject(mFace, FaceContent[].class);
         for (FaceContent faceContent : faceContents) {
             mFaceMap.put(faceContent.getSign(), faceContent);
         }
