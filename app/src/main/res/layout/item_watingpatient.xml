@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="54dp">
 
-                <com.petsknow.doctor.commonmodule.view.CircleImageView
+                <ImageView
                     android:id="@+id/iv_wating_petavaturl_nopt"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp">
 
-                    <com.petsknow.doctor.commonmodule.view.CircleImageView
+                    <ImageView
                         android:id="@+id/iv_wating_petavaturl_pt"
                         android:layout_width="42dp"
                         android:layout_height="42dp"

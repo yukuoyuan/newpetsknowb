@@ -8,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
+import com.petsknow.doctor.commonmodule.glide.GlideUtils;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.patientmodule.bean.WatingpatientBean;
-
 
 import java.util.List;
 
@@ -62,8 +61,7 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
             myHolder.ll_nohavept.setVisibility(View.VISIBLE);
             myHolder.ll_havept.setVisibility(View.GONE);
             //用户头像
-            Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getAvatarUrl())
-                    .error(R.drawable.default_icon_headphoto).into(myHolder.iv_nohavept_avator);
+            GlideUtils.circleImage(ConstantUrl.qiniu + list.get(position).getAvatarUrl(), myHolder.iv_nohavept_avator);
             //用户名字
             myHolder.tv_nohavept_username.setText(list.get(position).getUserName());
             //宠物名字和年龄
@@ -88,10 +86,9 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
             myHolder.ll_nohavept.setVisibility(View.GONE);
             myHolder.ll_havept.setVisibility(View.VISIBLE);
             //用户头像
-            Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getAvatarUrl())
-                    .error(R.drawable.default_icon_headphoto).into(myHolder.iv_havept_avator);
+            GlideUtils.circleImage(ConstantUrl.qiniu + list.get(position).getAvatarUrl(), myHolder.iv_havept_avator);
             //问诊图像
-            Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getPhotos().get(0)).into(myHolder.iv_havept_photo);
+            GlideUtils.imageCentergroup(ConstantUrl.qiniu + list.get(position).getPhotos().get(0), myHolder.iv_havept_photo);
             //用户名字
             myHolder.tv_havept_username.setText(list.get(position).getUserName());
             //宠物名字和年龄

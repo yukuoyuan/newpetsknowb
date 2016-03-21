@@ -7,12 +7,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
+import com.petsknow.doctor.commonmodule.glide.GlideUtils;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.mainmodule.bean.SeesionBean;
-
 
 import java.util.List;
 
@@ -72,8 +71,7 @@ public class MyListviewAdapter extends BaseAdapter {
         /**
          * 设置头像的展示
          */
-        Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getAvatarUrl())
-                .error(R.drawable.default_icon_headphoto).into(myHolder.avaturl);
+        GlideUtils.circleImage(ConstantUrl.qiniu + list.get(position).getAvatarUrl(),myHolder.avaturl);
         return convertView;
     }
 

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
@@ -18,10 +17,9 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.PhotoBrowerActivity;
 import com.petsknow.doctor.commonmodule.constant.Constant;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
-import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
+import com.petsknow.doctor.commonmodule.glide.GlideUtils;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.sessionmodule.utils.SmileUtils;
-
 
 import java.util.Date;
 import java.util.List;
@@ -119,8 +117,9 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else if (holder instanceof SendImageVIewHolder) {
             final ImageMessageBody imageMessageBody = (ImageMessageBody) list.get(position).getBody();
             L.i("图片地址", imageMessageBody.getLocalUrl() + "****" + imageMessageBody.getRemoteUrl());
-            Glide.with(PetsknowDoctorApplication.context).load(imageMessageBody.getLocalUrl())
-                    .centerCrop().into(((SendImageVIewHolder) holder).iv_item_send_image);
+//            Glide.with(PetsknowDoctorApplication.context).load(imageMessageBody.getLocalUrl())
+//                    .centerCrop().into(((SendImageVIewHolder) holder).iv_item_send_image);
+            GlideUtils.roundImageCenterGroup(imageMessageBody.getLocalUrl(), ((SendImageVIewHolder) holder).iv_item_send_image, 8);
             ((SendImageVIewHolder) holder).iv_item_send_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -133,7 +132,8 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
             TextMessageBody txtbody = (TextMessageBody) list.get(position).getBody();
             String content = txtbody.getMessage();
             ((FromTxtVIewHolder) holder).tv_item_from_txt.setText(SmileUtils.getSmiledText(activity, content));
-            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + avator).error(R.drawable.default_icon_headphoto).into(((FromTxtVIewHolder) holder).from_person_avator);
+            GlideUtils.circleImage(ConstantUrl.qiniu + avator, ((FromTxtVIewHolder) holder).from_person_avator);
+            // Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + avator).error(R.drawable.default_icon_headphoto).into(((FromTxtVIewHolder) holder).from_person_avator);
             // 两条消息时间离得如果稍长，显示时间
             if (position == 0) {
 
@@ -148,10 +148,12 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else if (holder instanceof FromImageVIewHolder) {
             final ImageMessageBody imageMessageBody = (ImageMessageBody) list.get(position).getBody();
             L.i("图片地址接受者", imageMessageBody.getLocalUrl() + "****" + imageMessageBody.getRemoteUrl());
-            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + avator)
-                    .error(R.drawable.default_icon_headphoto).into(((FromImageVIewHolder) holder).iv_item_from_image);
-            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + imageMessageBody.getRemoteUrl())
-                    .centerCrop().into(((FromImageVIewHolder) holder).from_person_avator);
+//            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + avator)
+//                    .error(R.drawable.default_icon_headphoto).into(((FromImageVIewHolder) holder).iv_item_from_image);
+            GlideUtils.circleImage(ConstantUrl.qiniu + avator,((FromImageVIewHolder) holder).iv_item_from_image);
+            GlideUtils.roundImageCenterGroup(ConstantUrl.qiniu + imageMessageBody.getRemoteUrl(), ((FromImageVIewHolder) holder).from_person_avator, 8);
+//            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + imageMessageBody.getRemoteUrl())
+//                    .centerCrop().into(((FromImageVIewHolder) holder).from_person_avator);
             ((FromImageVIewHolder) holder).iv_item_from_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

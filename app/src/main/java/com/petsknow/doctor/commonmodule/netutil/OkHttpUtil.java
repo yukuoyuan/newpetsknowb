@@ -76,7 +76,7 @@ public class OkHttpUtil {
         for (String key : requestPacket.headers.keySet()) {
             if (requestPacket.getHeader(key) != null) {
                 builder.header(key, requestPacket.headers.get(key));
-                L.i(key,requestPacket.headers.get(key));
+                L.i(key, requestPacket.headers.get(key));
             }
         }
         //设置请求的url
@@ -117,7 +117,7 @@ public class OkHttpUtil {
                         Type genType = listener.getClass().getGenericSuperclass();
                         Class clzss = (Class) ((ParameterizedType) genType).getActualTypeArguments()[0];
                         try {
-                            L.i("响应",result);
+                            L.i("响应", result);
                             listener.onSuccess(JSON.parseObject(result, clzss));
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -126,6 +126,5 @@ public class OkHttpUtil {
                 });
             }
         });
-
     }
 }

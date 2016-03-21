@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
-        <com.petsknow.doctor.commonmodule.view.CircleImageView
+        <ImageView
             android:id="@+id/iv_petavaturl"
             android:layout_width="42dp"
             android:layout_height="42dp"
