@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
-
-import org.xutils.x;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -23,7 +22,7 @@ public class PhotoBrowerActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initdata(Bundle extras) {
         photourl = extras.getString("url");
-        x.image().bind(iv_photobrower, photourl);
+        Glide.with(this).load(photourl).centerCrop().into(iv_photobrower);
     }
 
     @Override

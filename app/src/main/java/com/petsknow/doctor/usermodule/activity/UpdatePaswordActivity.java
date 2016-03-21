@@ -8,20 +8,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.bean.CommonBean;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
-import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.commonmodule.view.DelayButton;
 import com.petsknow.doctor.usermodule.bean.UpdatePasswordVcodeBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -114,18 +112,14 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
      * @param vcode
      */
     private void updatepasword(String newpwdfirst, String vcode) {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.updatepwd;
-        RequestParams params = new RequestParams(url);
-        String phone = UserManger.getUserPhone();
-        params.addParameter("phone", phone);
-        params.addParameter("password", newpwdfirst);
-        params.addParameter("vcode", vcode);
-        params.setAsJsonContent(true);
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.updatepwd;
+        requestPacket.addArgument("phone", UserManger.getUserPhone());
+        requestPacket.addArgument("password", newpwdfirst);
+        requestPacket.addArgument("vcode", vcode);
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<CommonBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.e("更改密码成功", o);
-                CommonBean commonBean = JSON.parseObject(o, CommonBean.class);
+            public void onSuccess(CommonBean commonBean) {
                 if (commonBean.getData() != null && commonBean.getStatus() == 0) {
                     T.show(UpdatePaswordActivity.this, commonBean.getMsg(), 0);
                     finish();
@@ -135,33 +129,24 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(UpdatePaswordActivity.this, "网络连接失败请稍后再试", 0);
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
+
     }
 
     /**
      * 发送验证码
      */
     private void sendvcode() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.sendvcode;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("phone", UserManger.getUserPhone());
-        params.addParameter("opt", "user_reg");
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.sendvcode;
+        requestPacket.addArgument("phone", UserManger.getUserPhone());
+        requestPacket.addArgument("opt", "user_reg");
+        OkHttpUtil.Request(RequestPacket.GET, requestPacket, new ResponseListener<UpdatePasswordVcodeBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.e("发送成功", o);
-                updatePasswordVcodeBean = JSON.parseObject(o, UpdatePasswordVcodeBean.class);
+            public void onSuccess(UpdatePasswordVcodeBean updatePasswordVcodeBean) {
                 if (updatePasswordVcodeBean.getData() != null && updatePasswordVcodeBean.getStatus() == 0) {
                     T.show(UpdatePaswordActivity.this, updatePasswordVcodeBean.getMsg(), 0);
                 } else {
@@ -170,16 +155,8 @@ public class UpdatePaswordActivity extends BaseActivity implements View.OnClickL
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(UpdatePaswordActivity.this, "网络连接超时,请稍后再试", 0);
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
     }

@@ -8,19 +8,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
-import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.patientmodule.activity.WatingDetailActivity;
 import com.petsknow.doctor.patientmodule.adapter.WatingPatientlistViewAdapter;
 import com.petsknow.doctor.patientmodule.bean.WatingpatientBean;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,14 +61,14 @@ public class WatingPatientFragment extends BaseFragment {
      * 这是一个获取患者列表的界面的方法
      */
     private void getwatingpatient() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.getwatingpatient;
-        RequestParams params = new RequestParams(url);
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.getwatingpatient;
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<WatingpatientBean>() {
             @Override
-            public void onSuccess(String s) {
-                L.e("所有待珍列表数据", s);
-                srl_wating_patient.setRefreshing(false);
-                watingpatientBean = JSON.parseObject(s, WatingpatientBean.class);
+            public void onSuccess(WatingpatientBean watingpatientBean) {
+                if (srl_wating_patient!=null){
+                    srl_wating_patient.setRefreshing(false);
+                }
                 if (watingpatientBean.getStatus() == 0) {
                     if (watingpatientBean.getData() != null && watingpatientBean.getData().size() > 0) {
                         list.clear();
@@ -87,21 +85,10 @@ public class WatingPatientFragment extends BaseFragment {
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                if(srl_wating_patient!=null){
+            public void onFailure(Request request) {
+                if (srl_wating_patient != null) {
                     srl_wating_patient.setRefreshing(false);
-                    T.show(getActivity(), "网络连接超时!请稍后再试", 0);
                 }
-            }
-
-            @Override
-            public void onCancelled(CancelledException e) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
             }
         });
     }

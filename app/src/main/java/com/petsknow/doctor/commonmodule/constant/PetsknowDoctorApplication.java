@@ -4,11 +4,10 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 
 import com.easemob.chat.EMChat;
 import com.petsknow.doctor.commonmodule.utils.IsRelease;
-
-import org.xutils.x;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,13 +17,13 @@ import java.util.List;
  */
 public class PetsknowDoctorApplication extends Application {
     public static Context context;
+    public static Handler mainHandler;
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
-        //初始化xutils3.0
-        x.Ext.init(this);
+        mainHandler = new Handler();
         //有第三方服务需要调用此方法(环信)
         initeasemobname();
     }

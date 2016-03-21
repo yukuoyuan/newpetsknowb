@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.alibaba.fastjson.JSON;
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
@@ -15,15 +14,15 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.Constant;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.mainmodule.activity.MainActivity;
 import com.petsknow.doctor.usermodule.bean.LoginBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -37,7 +36,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     EditText et_login_phone;
     @Bind(R.id.et_login_password)
     EditText et_login_password;
-    private LoginBean loginBean;
     private Intent intent;
     private Registfragment mRegisterFragment;
 
@@ -81,20 +79,17 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             T.show(getActivity(), "密码不能为空", 0);
             return;
         }
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.login;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("phone", phone);
-        params.addParameter("password", pwd);
-        params.setAsJsonContent(true);
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.login;
+        requestPacket.addArgument("phone", phone);
+        requestPacket.addArgument("password", pwd);
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<LoginBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.e("登录成功", o);
-                loginBean = JSON.parseObject(o, LoginBean.class);
+            public void onSuccess(LoginBean loginBean) {
                 if (loginBean.getStatus() == 0) {
                     if (loginBean.getData() != null && loginBean.getData().size() > 0) {
                         //存储用户信息
-                        saveuserdata();
+                        saveuserdata(loginBean);
                         logineasemobnema(loginBean.getData().get(0).getEasemobName());
                         UserManger.setLogin(true);
                         intent = new Intent(getActivity(), MainActivity.class);
@@ -109,16 +104,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(getActivity(), "网络连接超时,请稍后再试", 0);
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
     }
@@ -148,8 +135,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     /**
      * 这是一个存储用户信息的方法
+     * @param loginBean
      */
-    private void saveuserdata() {
+    private void saveuserdata(LoginBean loginBean) {
         UserManger.saveUserId(loginBean.getData().get(0).getId());
         UserManger.saveUserEaseMobName(loginBean.getData().get(0).getEasemobName());
         UserManger.saveUserAvaturl(loginBean.getData().get(0).getAvatarUrl());

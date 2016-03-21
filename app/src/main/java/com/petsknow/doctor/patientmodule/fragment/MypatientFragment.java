@@ -4,19 +4,17 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
-import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
-import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.patientmodule.adapter.MyPatientlistViewAdapter;
 import com.petsknow.doctor.patientmodule.bean.MypatientBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,6 @@ public class MypatientFragment extends BaseFragment {
     SwipeRefreshLayout srl_mypatient;
     @Bind(R.id.lv_mypatient)
     ListView lv_mypatient;
-    private MypatientBean mypatientbean;
     private List<MypatientBean.DataEntity> list = new ArrayList<>();
     private MyPatientlistViewAdapter myPatientlistViewAdapter;
     @Override
@@ -55,16 +52,12 @@ public class MypatientFragment extends BaseFragment {
     }
 
     public void getmypatientdata() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.Mypatient;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("doctorId", UserManger.getUserId());
-        x.http().get(params, new Callback.CommonCallback<String>() {
-
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.Mypatient;
+        requestPacket.addArgument("doctorId", UserManger.getUserId());
+        OkHttpUtil.Request(RequestPacket.GET, requestPacket, new ResponseListener<MypatientBean>() {
             @Override
-            public void onSuccess(String s) {
-                L.e("我的患者列表", s);
-                srl_mypatient.setRefreshing(false);
-                mypatientbean = JSON.parseObject(s, MypatientBean.class);
+            public void onSuccess(MypatientBean mypatientbean) {
                 if (mypatientbean.getStatus() == 0) {
                     if (mypatientbean.getData() != null && mypatientbean.getData().size() > 0) {
                         list.clear();
@@ -81,20 +74,8 @@ public class MypatientFragment extends BaseFragment {
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
+            public void onFailure(Request request) {
                 srl_mypatient.setRefreshing(false);
-                L.e("我的患者列表的错误", throwable.getMessage());
-                T.show(getActivity(), "网络连接超时!请稍后再试", 0);
-            }
-
-            @Override
-            public void onCancelled(CancelledException e) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
             }
         });
     }

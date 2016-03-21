@@ -7,7 +7,7 @@ import android.util.Log;
  * 这是一个log的工具类
  */
 public class L {
-    private static boolean flag = !IsRelease.IsRelease;
+    private static boolean flag = IsRelease.IsRelease;
 
     public static void e(String tag, String text) {
         if (flag) {

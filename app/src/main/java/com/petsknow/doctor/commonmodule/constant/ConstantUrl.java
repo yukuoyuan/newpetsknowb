@@ -9,6 +9,7 @@ import com.petsknow.doctor.commonmodule.utils.IsRelease;
 public class ConstantUrl {
 
 
+
     public static String BaseUrl() {
         if (IsRelease.IsRelease) {
             //正式地址
@@ -42,13 +43,17 @@ public class ConstantUrl {
     //关于我们
     public static String aboutme = "/base/open/about_us";
     //用户协议
-    public static String protocol="/base/open/doctor_protocol";
+    public static String protocol = "/base/open/doctor_protocol";
     //退出登录
-    public static String logout = "/doctor/open/doctor/reg";
+    public static String logout = "/user/logout";
     //发送验证码
     public static String sendvcode = "/base/open/sms/sms_send";
     //修改密码的方法
     public static String updatepwd = "/doctor/modify_passwd";
     //注册
-    public static String regist="/doctor/open/doctor/reg";
+    public static String regist = "/doctor/open/doctor/reg";
+    //获取历史问诊记录的方法
+    public static String gethistoryinqurylist="/inquiry/find_inquiry_bill_by_pets_id";
+    //获取宠物品种列表的方法
+    public static String getpettype="/knowledge/open/find_pets_type_abbreviation_list";
 }

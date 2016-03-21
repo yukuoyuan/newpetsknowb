@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
@@ -17,11 +18,10 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.PhotoBrowerActivity;
 import com.petsknow.doctor.commonmodule.constant.Constant;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
+import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.sessionmodule.utils.SmileUtils;
 
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
 
 import java.util.Date;
 import java.util.List;
@@ -35,16 +35,12 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Intent intent;
     private Activity activity;
     private String avator;
-    private ImageOptions options;
-    private ImageOptions optionsmsg;
 
     public ChartListVIewAdapter(List<EMMessage> list, Activity activity, String avator) {
         super();
         this.list = list;
         this.activity = activity;
         this.avator = avator;
-        initImageoptions();
-        initImageoptionsmsg();
     }
 
     /**
@@ -57,27 +53,6 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyItemInserted(list.size());
     }
 
-    private void initImageoptions() {
-        options = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.drawable.default_icon_headphoto)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.drawable.default_icon_headphoto)
-                        //设置显示圆形图片
-                .setCircular(true)
-                        //设置支持gif
-                .setIgnoreGif(false)
-                .build();
-    }
-
-    private void initImageoptionsmsg() {
-        optionsmsg = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                .build();
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -144,7 +119,8 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else if (holder instanceof SendImageVIewHolder) {
             final ImageMessageBody imageMessageBody = (ImageMessageBody) list.get(position).getBody();
             L.i("图片地址", imageMessageBody.getLocalUrl() + "****" + imageMessageBody.getRemoteUrl());
-            x.image().bind(((SendImageVIewHolder) holder).iv_item_send_image, imageMessageBody.getLocalUrl(), optionsmsg);
+            Glide.with(PetsknowDoctorApplication.context).load(imageMessageBody.getLocalUrl())
+                    .centerCrop().into(((SendImageVIewHolder) holder).iv_item_send_image);
             ((SendImageVIewHolder) holder).iv_item_send_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -157,7 +133,7 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
             TextMessageBody txtbody = (TextMessageBody) list.get(position).getBody();
             String content = txtbody.getMessage();
             ((FromTxtVIewHolder) holder).tv_item_from_txt.setText(SmileUtils.getSmiledText(activity, content));
-            x.image().bind(((FromTxtVIewHolder) holder).from_person_avator, ConstantUrl.qiniu + avator, options);
+            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + avator).error(R.drawable.default_icon_headphoto).into(((FromTxtVIewHolder) holder).from_person_avator);
             // 两条消息时间离得如果稍长，显示时间
             if (position == 0) {
 
@@ -172,8 +148,10 @@ public class ChartListVIewAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else if (holder instanceof FromImageVIewHolder) {
             final ImageMessageBody imageMessageBody = (ImageMessageBody) list.get(position).getBody();
             L.i("图片地址接受者", imageMessageBody.getLocalUrl() + "****" + imageMessageBody.getRemoteUrl());
-            x.image().bind(((FromImageVIewHolder) holder).iv_item_from_image, imageMessageBody.getRemoteUrl(), optionsmsg);
-            x.image().bind(((FromImageVIewHolder) holder).from_person_avator, ConstantUrl.qiniu + avator, options);
+            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + avator)
+                    .error(R.drawable.default_icon_headphoto).into(((FromImageVIewHolder) holder).iv_item_from_image);
+            Glide.with(PetsknowDoctorApplication.context).load(ConstantUrl.qiniu + imageMessageBody.getRemoteUrl())
+                    .centerCrop().into(((FromImageVIewHolder) holder).from_person_avator);
             ((FromImageVIewHolder) holder).iv_item_from_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

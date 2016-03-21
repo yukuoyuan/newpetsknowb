@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.easemob.EMCallBack;
 import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMChat;
@@ -38,6 +37,9 @@ import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.bean.CommonBean;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.KeyBoardUtils;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
@@ -45,10 +47,7 @@ import com.petsknow.doctor.commonmodule.view.imageselector.MultiImageSelectorAct
 import com.petsknow.doctor.sessionmodule.adapter.ChartListVIewAdapter;
 import com.petsknow.doctor.sessionmodule.bean.FaceContent;
 import com.petsknow.doctor.sessionmodule.bean.FaceList;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -91,7 +90,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     private EMConversation conversation;
     private ChartListVIewAdapter chartListVIewAdapter;
     private int illnessid;
-    private CommonBean commonBean;
     private NewMessageBroadcastReceiver msgReceiver;
     private String userAvator;
     private static final int INTENT_REQUEST_GET_IMAGES = 2;
@@ -350,33 +348,22 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
      * 这是一个结束回话的方法
      */
     private void finshMessage() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.oversession;
-        RequestParams params = new RequestParams(url);
-        L.i("问诊id", illnessid + "");
-        params.addParameter("id", illnessid);
-        params.setAsJsonContent(true);
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.oversession;
+        requestPacket.addArgument("id", illnessid);
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<CommonBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.i("结束会话", o);
-                commonBean = JSON.parseObject(o, CommonBean.class);
+            public void onSuccess(CommonBean commonBean) {
                 if (commonBean.getStatus() == 0) {
                     //结束会话成功,退出当前页面,跳转至发送诊断书的页面
+                }else {
+                    T.show(ChatActivity.this, commonBean.getMsg(), 0);
                 }
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(ChatActivity.this, "网络请求超时,请稍后再试", 0);
-                L.e("所有会话列表的错误信息", throwable.toString());
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
         EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);

@@ -8,10 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.view.imageselector.bean.Image;
-
-import org.xutils.x;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -238,14 +237,9 @@ public class ImageGridAdapter extends BaseAdapter {
 
             if(mItemSize > 0) {
                 // 显示图片
-//                Glide.with(mContext)
-//                        .load(imageFile)
-//                        .placeholder(R.drawable.default_error)
-//                                //.error(R.drawable.default_error)
-//                        .override(mItemSize, mItemSize)
-//                        .centerCrop().crossFade()
-//                        .into(image);
-                x.image().bind(image,imageFile.getPath());
+                Glide.with(mContext)
+                        .load(imageFile.getPath()).into(image);
+//                x.image().bind(image,imageFile.getPath());
             }
         }
     }

@@ -4,13 +4,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.easemob.EMCallBack;
 import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMChatManager;
@@ -21,17 +24,21 @@ import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.activity.PhotoBrowerActivity;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
+import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
+import com.petsknow.doctor.commonmodule.view.MyListview;
+import com.petsknow.doctor.mainmodule.activity.MainActivity;
+import com.petsknow.doctor.patientmodule.bean.ListInquryListBean;
 import com.petsknow.doctor.patientmodule.bean.WatingpatientBean;
 import com.petsknow.doctor.sessionmodule.activity.ChatActivity;
+import com.petsknow.doctor.usermodule.bean.LoginBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -75,9 +82,7 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.iv_watingdetail_photothree)  //第三个照片
             ImageView iv_watingdetail_photothree;
     private Intent intent;
-    private ImageOptions options;
     private String avator;
-    private ImageOptions options02;
     @Bind(R.id.tv_watingdetail_pet_name) //宠物姓名
             TextView tv_watingdetail_pet_name;
 
@@ -101,6 +106,8 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
             TextView tv_watingdetail_pet_rabies_vaccine;
     @Bind(R.id.tv_watingdetail_pet_out_parasite)  //体外驱虫
             TextView tv_watingdetail_pet_out_parasite;
+    @Bind(R.id.mlv_watingdetail_history_list)
+    MyListview mlv_watingdetail_history_list;
 
     @Override
     public void initdata(Bundle extras) {
@@ -112,9 +119,8 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
         tv_public_title.setText("待诊详情");
         id = getIntent().getIntExtra("id", 0);
         avator = getIntent().getStringExtra("avator");
-        initImageoptions();
-        initImageoptions02();
         getwatingdetail();
+
     }
 
     @Override
@@ -179,31 +185,18 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
      * 这是一个接诊的方法
      */
     private void reception() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.reception;
-        RequestParams params = new RequestParams(url);
-        params.setAsJsonContent(true);
-        params.addParameter("id", id);
-        params.addHeader("dt_id", UserManger.getUserId() + "");
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.reception;
+        requestPacket.addArgument("id", id);
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<LoginBean>() {
             @Override
-            public void onSuccess(String s) {
-                L.e("接诊成功", s);
+            public void onSuccess(LoginBean loginBean) {
                 sendcmdmessage();
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                L.e("接诊失败", "网络连接超时!请稍后再试");
-            }
-
-            @Override
-            public void onCancelled(CancelledException e) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
+            public void onFailure(Request request) {
+                sendcmdmessage();
             }
         });
     }
@@ -290,38 +283,27 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
      * 获取问诊详情的界面
      */
     public void getwatingdetail() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.getwatingdetial;
-        RequestParams params = new RequestParams(url);
-        params.setAsJsonContent(true);
-        params.addParameter("id", id);
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.getwatingdetial;
+        requestPacket.addArgument("id", id);
+        OkHttpUtil.Request(RequestPacket.GET, requestPacket, new ResponseListener<WatingpatientBean>() {
             @Override
-            public void onSuccess(String s) {
-                L.e("问诊详情", s);
-                watingpatientBean = JSON.parseObject(s, WatingpatientBean.class);
-                if (watingpatientBean.getStatus() == 0) {
-                    if (watingpatientBean.getData() != null && watingpatientBean.getData().size() > 0) {
+            public void onSuccess(WatingpatientBean watingpatientBeann) {
+                watingpatientBean = watingpatientBeann;
+                if (watingpatientBeann.getStatus() == 0) {
+                    if (watingpatientBeann.getData() != null && watingpatientBeann.getData().size() > 0) {
                         initviewdata();
+                        gethistorylist();
                     } else {
-                        T.show(getApplicationContext(), watingpatientBean.getMsg(), 0);
+                        T.show(getApplicationContext(), watingpatientBeann.getMsg(), 0);
                     }
                 } else {
-                    T.show(getApplicationContext(), watingpatientBean.getMsg(), 0);
+                    T.show(getApplicationContext(), watingpatientBeann.getMsg(), 0);
                 }
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(getApplicationContext(), "网络请求超时,请稍后再试", 0);
-            }
-
-            @Override
-            public void onCancelled(CancelledException e) {
-
-            }
-
-            @Override
-            public void onFinished() {
+            public void onFailure(Request request) {
 
             }
         });
@@ -331,10 +313,11 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
      * 初始化界面的数据
      */
     private void initviewdata() {
-        tv_watingdetailusername.setText(watingpatientBean.getData().get(0).getUserName());
-        tv_watingdetaildesc.setText(watingpatientBean.getData().get(0).getDescription());
-        x.image().bind(iv_watingdetial_avator, ConstantUrl.qiniu + avator, options02);
-        if (watingpatientBean.getData().get(0).getPhotos().size() == 0) {
+        tv_watingdetailusername.setText(this.watingpatientBean.getData().get(0).getUserName());
+        tv_watingdetaildesc.setText(this.watingpatientBean.getData().get(0).getDescription());
+        Glide.with(this).load(ConstantUrl.qiniu + avator)
+                .error(R.drawable.default_icon_headphoto).into(iv_watingdetial_avator);
+        if (this.watingpatientBean.getData().get(0).getPhotos().size() == 0) {
             ll_watingdetailphoto.setVisibility(View.GONE);
             tv_watingdetail_nohave.setVisibility(View.VISIBLE);
         } else {
@@ -342,22 +325,23 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
             tv_watingdetail_nohave.setVisibility(View.GONE);
         }
         //图片的展示
-        int size = watingpatientBean.getData().get(0).getPhotos().size();
+        int size = this.watingpatientBean.getData().get(0).getPhotos().size();
         if (size == 1) {
-            x.image().bind(iv_watingdetail_photoone, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
+            Glide.with(this).load(ConstantUrl.qiniu + this.watingpatientBean.getData().get(0).getPhotos().get(0))
+                    .centerCrop().into(iv_watingdetail_photoone);
             iv_watingdetail_photoone.setVisibility(View.VISIBLE);
             iv_watingdetail_phototwo.setVisibility(View.GONE);
             iv_watingdetail_photothree.setVisibility(View.GONE);
         } else if (size == 2) {
-            x.image().bind(iv_watingdetail_photoone, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
-            x.image().bind(iv_watingdetail_phototwo, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1), options);
+            Glide.with(this).load(ConstantUrl.qiniu + this.watingpatientBean.getData().get(0).getPhotos().get(0)).centerCrop().into(iv_watingdetail_photoone);
+            Glide.with(this).load(ConstantUrl.qiniu + this.watingpatientBean.getData().get(0).getPhotos().get(1)).centerCrop().into(iv_watingdetail_phototwo);
             iv_watingdetail_photoone.setVisibility(View.VISIBLE);
             iv_watingdetail_phototwo.setVisibility(View.VISIBLE);
             iv_watingdetail_photothree.setVisibility(View.GONE);
         } else if (size == 3) {
-            x.image().bind(iv_watingdetail_photoone, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(0), options);
-            x.image().bind(iv_watingdetail_phototwo, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(1), options);
-            x.image().bind(iv_watingdetail_photothree, ConstantUrl.qiniu + watingpatientBean.getData().get(0).getPhotos().get(2), options);
+            Glide.with(this).load(ConstantUrl.qiniu + this.watingpatientBean.getData().get(0).getPhotos().get(0)).centerCrop().into(iv_watingdetail_photoone);
+            Glide.with(this).load(ConstantUrl.qiniu + this.watingpatientBean.getData().get(0).getPhotos().get(1)).centerCrop().into(iv_watingdetail_phototwo);
+            Glide.with(this).load(ConstantUrl.qiniu + this.watingpatientBean.getData().get(0).getPhotos().get(2)).centerCrop().into(iv_watingdetail_photothree);
             iv_watingdetail_photoone.setVisibility(View.VISIBLE);
             iv_watingdetail_phototwo.setVisibility(View.VISIBLE);
             iv_watingdetail_photothree.setVisibility(View.VISIBLE);
@@ -366,45 +350,98 @@ public class WatingDetailActivity extends BaseActivity implements View.OnClickLi
          * 填充宠物信息
          */
         //姓名
-        tv_watingdetail_pet_name.setText(watingpatientBean.getData().get(0).getPetsVo().getName());
+        tv_watingdetail_pet_name.setText(this.watingpatientBean.getData().get(0).getPetsVo().getName());
         //品种
-        // tv_watingdetail_pet_breed.setText();
+        if (MainActivity.getPetTypeName(this.watingpatientBean.getData().get(0).getPetsVo().getSpecies()) == null) {
+            tv_watingdetail_pet_breed.setText("未知");
+        }else {
+            tv_watingdetail_pet_breed.setText(MainActivity.getPetTypeName(this.watingpatientBean.getData().get(0).getPetsVo().getSpecies()));
+        }
+
         //年龄
-        tv_watingdetail_pet_age.setText(DateUtil.getAge(watingpatientBean.getData().get(0).getPetsVo().getBirthday()) + "岁");
+        tv_watingdetail_pet_age.setText(DateUtil.getAge(this.watingpatientBean.getData().get(0).getPetsVo().getBirthday()) + "岁");
         //绝育状态
-        tv_wating_detail_pet_sterrilization.setText(watingpatientBean.getData().get(0).getPetsVo().getIsNeuter() == 1 ? "已绝育" : "未绝育");
+        tv_wating_detail_pet_sterrilization.setText(this.watingpatientBean.getData().get(0).getPetsVo().getIsNeuter() == 1 ? "已绝育" : "未绝育");
         //体内驱虫时间
-        tv_watingdetail_pet_in_parasite.setText(DateUtil.getpetVaccine(watingpatientBean.getData().get(0).getPetsVo().getInsideDebugTime()));
+        tv_watingdetail_pet_in_parasite.setText(DateUtil.getpetVaccine(this.watingpatientBean.getData().get(0).getPetsVo().getInsideDebugTime()));
         //联苗针时间
-        tv_watingdetail_pet_needle.setText(DateUtil.getpetVaccine(watingpatientBean.getData().get(0).getPetsVo().getMultiVaccineTime()));
+        tv_watingdetail_pet_needle.setText(DateUtil.getpetVaccine(this.watingpatientBean.getData().get(0).getPetsVo().getMultiVaccineTime()));
         //性别
-        tv_watingdetail_pet_gender.setText(watingpatientBean.getData().get(0).getPetsVo().getGender() == 1 ? "雌性" : "雄性");
+        tv_watingdetail_pet_gender.setText(this.watingpatientBean.getData().get(0).getPetsVo().getGender() == 1 ? "雌性" : "雄性");
         //狂犬疫苗
-        //tv_watingdetail_pet_rabies_vaccine.setText(DateUtil.getpetVaccine(watingpatientBean.getData().get(0).getPetsVo().getMultiVaccineTime()));
+        // tv_watingdetail_pet_rabies_vaccine.setText(DateUtil.getpetVaccine(watingpatientBean.getData().get(0).getPetsVo().getMultiVaccineTime()));
         //体外驱虫
-        tv_watingdetail_pet_out_parasite.setText(DateUtil.getpetVaccine(watingpatientBean.getData().get(0).getPetsVo().getOutsideDebugTime()));
+        tv_watingdetail_pet_out_parasite.setText(DateUtil.getpetVaccine(this.watingpatientBean.getData().get(0).getPetsVo().getOutsideDebugTime()));
     }
 
-    private void initImageoptions() {
-        options = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                        //设置支持gif
-                .setIgnoreGif(false)
-                .build();
+    /**
+     * 获取历史问诊记录的方法
+     */
+    public void gethistorylist() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.gethistoryinqurylist;
+        requestPacket.addArgument("petsId", watingpatientBean.getData().get(0).getPetsVo().getId());
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<ListInquryListBean>() {
+            @Override
+            public void onSuccess(ListInquryListBean listInquryListBean) {
+                if (listInquryListBean.getData() != null &&
+                        listInquryListBean.getData().size() > 0 && listInquryListBean.getStatus() == 0) {
+                    PatientAdapter patientAdapter = new PatientAdapter(listInquryListBean);
+                    mlv_watingdetail_history_list.setAdapter(patientAdapter);
+                } else {
+                    T.showLong(PetsknowDoctorApplication.context, listInquryListBean.getMsg());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Request request) {
+
+            }
+        });
     }
 
-    private void initImageoptions02() {
-        options02 = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                .setCircular(true)
-                        //设置支持gif
-                .setIgnoreGif(false)
-                .build();
+    class PatientAdapter extends BaseAdapter {
+
+        ListInquryListBean listInquryListBean;
+
+        public PatientAdapter(ListInquryListBean listInquryListBean) {
+            this.listInquryListBean = listInquryListBean;
+        }
+
+        @Override
+        public int getCount() {
+            return listInquryListBean.getData().size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_list_history_inqury, null);
+                holder = new ViewHolder();
+                holder.textView = (TextView) convertView.findViewById(R.id.item_patient_tv);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.textView.setText(listInquryListBean.getData().get(position).getDescription());
+            return convertView;
+        }
+
+
+        class ViewHolder {
+            TextView textView;
+        }
     }
 }

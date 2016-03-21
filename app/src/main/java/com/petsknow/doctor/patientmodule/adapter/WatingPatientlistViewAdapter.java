@@ -8,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.patientmodule.bean.WatingpatientBean;
 
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
 
 import java.util.List;
 
@@ -25,38 +24,13 @@ import java.util.List;
 public class WatingPatientlistViewAdapter extends BaseAdapter {
     private List<WatingpatientBean.DataEntity> list;
     private Context context;
-    private ImageOptions options;
-    private ImageOptions options02;
+
     public WatingPatientlistViewAdapter(Context context, List<WatingpatientBean.DataEntity> list) {
         super();
         this.list = list;
         this.context = context;
-        initImageoptions();
-        initImageoptions02();
     }
 
-    private void initImageoptions() {
-        options = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.drawable.main_mypatient)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.drawable.main_mypatient)
-
-                .setCircular(true)
-                        //设置支持gif
-                .setIgnoreGif(false)
-                .build();
-    }
-    private void initImageoptions02() {
-        options02 = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                        //设置支持gif
-                .setIgnoreGif(false)
-                .build();
-    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         MyHolder myHolder;
@@ -78,7 +52,7 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
             myHolder.tv_havept_status = (TextView) convertView.findViewById(R.id.tv_wating_status_pt);
             myHolder.tv_havept_desc = (TextView) convertView.findViewById(R.id.tv_wating_desc_pt);
             myHolder.ll_havept = (LinearLayout) convertView.findViewById(R.id.ll_wating_havept);
-            myHolder.iv_havept_photo  = (ImageView) convertView.findViewById(R.id.tv_wating_photos_pt);
+            myHolder.iv_havept_photo = (ImageView) convertView.findViewById(R.id.tv_wating_photos_pt);
             convertView.setTag(myHolder);
         } else {
             myHolder = (MyHolder) convertView.getTag();
@@ -88,8 +62,8 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
             myHolder.ll_nohavept.setVisibility(View.VISIBLE);
             myHolder.ll_havept.setVisibility(View.GONE);
             //用户头像
-            x.image().bind(myHolder.iv_nohavept_avator, ConstantUrl.qiniu + list.get(position).getAvatarUrl(), options);
-
+            Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getAvatarUrl())
+                    .error(R.drawable.default_icon_headphoto).into(myHolder.iv_nohavept_avator);
             //用户名字
             myHolder.tv_nohavept_username.setText(list.get(position).getUserName());
             //宠物名字和年龄
@@ -114,9 +88,10 @@ public class WatingPatientlistViewAdapter extends BaseAdapter {
             myHolder.ll_nohavept.setVisibility(View.GONE);
             myHolder.ll_havept.setVisibility(View.VISIBLE);
             //用户头像
-            x.image().bind(myHolder.iv_havept_avator, ConstantUrl.qiniu + list.get(position).getAvatarUrl(), options);
+            Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getAvatarUrl())
+                    .error(R.drawable.default_icon_headphoto).into(myHolder.iv_havept_avator);
             //问诊图像
-            x.image().bind(myHolder.iv_havept_photo, ConstantUrl.qiniu + list.get(position).getPhotos().get(0), options02);
+            Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getPhotos().get(0)).into(myHolder.iv_havept_photo);
             //用户名字
             myHolder.tv_havept_username.setText(list.get(position).getUserName());
             //宠物名字和年龄

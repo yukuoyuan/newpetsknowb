@@ -6,10 +6,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.commonmodule.view.MyListview;
@@ -18,10 +20,7 @@ import com.petsknow.doctor.sessionmodule.activity.ChatActivity;
 import com.petsknow.doctor.sessionmodule.activity.EditAegrotatActivity;
 import com.petsknow.doctor.sessionmodule.adapter.MyListviewAdapter;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,6 @@ public class SessionListFragment extends BaseFragment {
     MyListview mlv_session_done;
     @Bind(R.id.srfl_seesionlist)
     SwipeRefreshLayout srfl_seesionlist;
-    private SeesionBean seesionBean;
     private List<SeesionBean.DataEntity> list01 = new ArrayList<SeesionBean.DataEntity>();
     private List<SeesionBean.DataEntity> list02 = new ArrayList<SeesionBean.DataEntity>();
     private List<SeesionBean.DataEntity> list03 = new ArrayList<SeesionBean.DataEntity>();
@@ -127,17 +125,13 @@ public class SessionListFragment extends BaseFragment {
      * 获取会话列表
      */
     public void getseesiondata() {
-
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.getallseesionlist;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("doctorId", UserManger.getUserId());
-        params.addHeader("dt_id", UserManger.getUserId() + "");
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.getallseesionlist;
+        requestPacket.addArgument("doctorId", UserManger.getUserId());
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<SeesionBean>() {
             @Override
-            public void onSuccess(String o) {
+            public void onSuccess(SeesionBean seesionBean) {
                 srfl_seesionlist.setRefreshing(false);
-                L.e("所有会话列表", o);
-                seesionBean = JSON.parseObject(o, SeesionBean.class);
                 if (seesionBean.getStatus() == 0) {
                     if (seesionBean.getData() != null && seesionBean.getData().size() > 0) {
                         list01.clear();
@@ -162,19 +156,7 @@ public class SessionListFragment extends BaseFragment {
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(getActivity(), "网络请求超时,请稍后再试", 0);
-                srfl_seesionlist.setRefreshing(false);
-                L.e("所有会话列表的错误信息", throwable.toString());
-            }
-
-            @Override
-            public void onCancelled(CancelledException e) {
-
-            }
-
-            @Override
-            public void onFinished() {
+            public void onFailure(Request request) {
 
             }
         });

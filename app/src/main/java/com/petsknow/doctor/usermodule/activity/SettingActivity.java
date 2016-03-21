@@ -13,14 +13,13 @@ import com.easemob.chat.EMChatManager;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.activity.WebActivity;
+import com.petsknow.doctor.commonmodule.bean.CommonBean;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
-import com.petsknow.doctor.commonmodule.utils.L;
-import com.petsknow.doctor.commonmodule.utils.T;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -95,15 +94,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
      * 这是一个退出登录的方法
      */
     private void loginout() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.logout;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("doctorId", UserManger.getUserId());
-        params.setAsJsonContent(true);
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.logout;
+        requestPacket.addArgument("doctorId", UserManger.getUserId());
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<CommonBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.e("退出成功", o);
-                //loginBean = JSON.parseObject(o, LoginBean.class);
+            public void onSuccess(CommonBean commonBean) {
                 setResult(RESULT_OK);
                 UserManger.setLogin(false);
                 EMChatManager.getInstance().logout();//此方法为同步方法
@@ -111,16 +107,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(SettingActivity.this, "网络连接超时,请稍后再试", 0);
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
     }

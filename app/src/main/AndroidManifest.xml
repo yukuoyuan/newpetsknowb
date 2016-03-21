@@ -160,13 +160,13 @@
         <!-- 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->
         <meta-data
             android:name="XG_V2_ACCESS_ID"
-            android:value="2100179240" />
+            android:value="2100154202" />
         <!--测试:2100179240-->
         <!--正式;2100154202-->
         <!-- 【必须】 请将YOUR_ACCESS_KEY修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
         <meta-data
             android:name="XG_V2_ACCESS_KEY"
-            android:value="A6NAF1J24X2F" />
+            android:value="A8MSTH9141BU" />
         <!--测试:A6NAF1J24X2F-->
         <!--正式:A8MSTH9141BU-->
     </application>

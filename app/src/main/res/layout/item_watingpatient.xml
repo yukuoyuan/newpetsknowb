@@ -9,17 +9,17 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_wating_nohavept"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="54dp">
 
-                <ImageView
+                <com.petsknow.doctor.commonmodule.view.CircleImageView
                     android:id="@+id/iv_wating_petavaturl_nopt"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
@@ -58,23 +58,23 @@
 
                         <ImageView
                             android:id="@+id/iv_petsex_nopt"
-                            android:layout_marginLeft="6dp"
                             android:layout_width="wrap_content"
-                            android:src="@drawable/wating_pet_man"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:src="@drawable/wating_pet_man" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_wating_status_nopt"
-                    android:layout_marginRight="15dp"
-                    android:textColor="@color/color_ff917a"
-                    android:textSize="11sp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:text="已结束问诊"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:text="已结束问诊"
+                    android:textColor="@color/color_ff917a"
+                    android:textSize="11sp" />
             </RelativeLayout>
 
             <View
@@ -86,122 +86,127 @@
 
             <TextView
                 android:id="@+id/tv_wating_desc_nopt"
-                android:layout_marginLeft="15dp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:layout_marginTop="6dp"
-                android:text="nidongdeba"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/color_564c46"
-                android:textSize="13sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="nidongdeba"
+                android:textColor="@color/color_564c46"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_wating_havept"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_wating_petavaturl_pt"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_wating_petavaturl_pt"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_watingusername_pt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="你猜"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
+                    <com.petsknow.doctor.commonmodule.view.CircleImageView
+                        android:id="@+id/iv_wating_petavaturl_pt"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:orientation="horizontal">
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_wating_petavaturl_pt"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_watingpetname_pt"
+                            android:id="@+id/tv_watingusername_pt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="喵星人小怪兽(2岁)"
-                            android:textColor="@color/color_7e7e7e"
-                            android:textSize="13sp" />
+                            android:text="你猜"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
 
-                        <ImageView
-                            android:id="@+id/iv_petsex_pt"
-                            android:layout_marginLeft="6dp"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:src="@drawable/wating_pet_man"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_watingpetname_pt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="喵星人小怪兽(2岁)"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
+
+                            <ImageView
+                                android:id="@+id/iv_petsex_pt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:src="@drawable/wating_pet_man" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
 
-            </RelativeLayout>
+                </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@color/darklightgray" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/darklightgray" />
 
-            <TextView
-                android:id="@+id/tv_wating_desc_pt"
-                android:layout_marginLeft="15dp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:layout_marginTop="6dp"
-                android:text="nidongdeba"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/color_564c46"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_wating_desc_pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="nidongdeba"
+                    android:textColor="@color/color_564c46"
+                    android:textSize="13sp" />
             </LinearLayout>
-        <LinearLayout
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/tv_wating_photos_pt"
-                android:layout_marginTop="10dp"
-                android:layout_width="60dp"
-                android:layout_height="60dp" />
-            <TextView
-                   android:id="@+id/tv_wating_status_pt"
-                   android:textColor="@color/color_ff917a"
-                   android:textSize="11sp"
-                   android:text="已结束问诊"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content" />
-        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/tv_wating_photos_pt"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_wating_status_pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="已结束问诊"
+                    android:textColor="@color/color_ff917a"
+                    android:textSize="11sp" />
+            </LinearLayout>
         </LinearLayout>
 
     </RelativeLayout>

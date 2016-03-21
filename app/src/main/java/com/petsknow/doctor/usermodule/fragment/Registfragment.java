@@ -10,22 +10,20 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.WebActivity;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
-import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.commonmodule.view.DelayButton;
 import com.petsknow.doctor.usermodule.bean.RegistBean;
 import com.petsknow.doctor.usermodule.bean.UpdatePasswordVcodeBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -49,7 +47,6 @@ public class Registfragment extends BaseFragment implements View.OnClickListener
     CheckBox registerAgree;
     private LoginFragment mLoginFragment;
     private Intent intent;
-    private UpdatePasswordVcodeBean updatePasswordVcodeBean;
 
     @Override
     public void initdata(Bundle arguments) {
@@ -154,18 +151,15 @@ public class Registfragment extends BaseFragment implements View.OnClickListener
      * @param vcode
      */
     private void regist(String phone, String password, String vcode) {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.regist;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("phone", phone);
-        params.addParameter("password", password);
-        params.addParameter("channel", UserManger.getUserId());
-        params.addParameter("vcode", vcode);
-        params.setAsJsonContent(true);
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.regist;
+        requestPacket.addArgument("phone", phone);
+        requestPacket.addArgument("password", password);
+        requestPacket.addArgument("channel", UserManger.getUserId());
+        requestPacket.addArgument("vcode", vcode);
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<RegistBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.e("注册成功", o);
-                RegistBean registBean = JSON.parseObject(o, RegistBean.class);
+            public void onSuccess(RegistBean registBean) {
                 if (registBean.getData() != null && registBean.getStatus() == 0) {
                     T.show(getActivity(), registBean.getMsg(), 0);
                     //进入提交审核信息的页面
@@ -175,16 +169,8 @@ public class Registfragment extends BaseFragment implements View.OnClickListener
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(getActivity(), "网络连接超时,请稍后再试", 0);
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
     }
@@ -196,15 +182,13 @@ public class Registfragment extends BaseFragment implements View.OnClickListener
      */
     private void sendsmsvcode(String phone) {
         registGetVerifyCode.delay(120);
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.sendvcode;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("phone", phone);
-        params.addParameter("opt", "user_reg");
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.sendvcode;
+        requestPacket.addArgument("phone", phone);
+        requestPacket.addArgument("opt", "user_reg");
+        OkHttpUtil.Request(RequestPacket.GET, requestPacket, new ResponseListener<UpdatePasswordVcodeBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.e("发送成功", o);
-                updatePasswordVcodeBean = JSON.parseObject(o, UpdatePasswordVcodeBean.class);
+            public void onSuccess(UpdatePasswordVcodeBean updatePasswordVcodeBean) {
                 if (updatePasswordVcodeBean.getData() != null && updatePasswordVcodeBean.getStatus() == 0) {
                     T.show(getActivity(), updatePasswordVcodeBean.getMsg(), 0);
                 } else {
@@ -213,16 +197,8 @@ public class Registfragment extends BaseFragment implements View.OnClickListener
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(getActivity(), "网络连接超时,请稍后再试", 0);
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
     }

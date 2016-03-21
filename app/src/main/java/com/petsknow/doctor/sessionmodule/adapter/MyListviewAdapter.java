@@ -7,14 +7,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
-import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.mainmodule.bean.SeesionBean;
 
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
 
 import java.util.List;
 
@@ -25,26 +23,11 @@ import java.util.List;
 public class MyListviewAdapter extends BaseAdapter {
     private List<SeesionBean.DataEntity> list;
     private Context context;
-    private ImageOptions options;
 
     public MyListviewAdapter(Context context, List<SeesionBean.DataEntity> list) {
         super();
         this.list = list;
         this.context = context;
-        initImageoptions();
-    }
-
-    private void initImageoptions() {
-        options = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                        //设置显示圆形图片
-                .setCircular(true)
-                        //设置支持gif
-                .setIgnoreGif(false)
-                .build();
     }
 
     @Override
@@ -89,8 +72,8 @@ public class MyListviewAdapter extends BaseAdapter {
         /**
          * 设置头像的展示
          */
-        L.i("用户头像", list.get(position).getAvatarUrl());
-        x.image().bind(myHolder.avaturl, ConstantUrl.qiniu + list.get(position).getAvatarUrl(), options);
+        Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getAvatarUrl())
+                .error(R.drawable.default_icon_headphoto).into(myHolder.avaturl);
         return convertView;
     }
 

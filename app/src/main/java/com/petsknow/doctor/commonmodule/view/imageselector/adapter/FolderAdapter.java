@@ -8,10 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.view.imageselector.bean.Folder;
 
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,13 +83,7 @@ public class FolderAdapter extends BaseAdapter {
                 holder.size.setText(getTotalImageSize() + "张");
                 if (mFolders.size() > 0) {
                     Folder f = mFolders.get(0);
-//                    Glide.with(mContext)
-//                            .load(new File(f.cover.path))
-//                            .error(R.drawable.default_error)
-//                            .override(mImageSize, mImageSize)
-//                            .centerCrop().crossFade()
-//                            .into(holder.cover);
-                    x.image().bind(holder.cover, f.cover.path);
+                    Glide.with(mContext).load(f.cover.path).into(holder.cover);
                 }
             } else {
                 holder.bindData(getItem(i));
@@ -141,14 +135,7 @@ public class FolderAdapter extends BaseAdapter {
         void bindData(Folder data) {
             name.setText(data.name);
             size.setText(data.images.size() + "张");
-            // 显示图片
-//            Glide.with(mContext)
-//                    .load(new File(data.cover.path))
-//                    .placeholder(R.drawable.default_error)
-//                    .override(mImageSize, mImageSize)
-//                    .centerCrop().crossFade()
-//                    .into(cover);
-            x.image().bind(cover,data.cover.path);
+            Glide.with(mContext).load(data.cover.path).into(cover);
             // TODO 选择标识
         }
     }

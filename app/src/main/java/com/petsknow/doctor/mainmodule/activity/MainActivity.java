@@ -19,13 +19,21 @@ import com.easemob.util.NetUtils;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.adapter.MyPagerAdapter;
+import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
+import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.guidemodule.activity.SplashActivity;
 import com.petsknow.doctor.infomodule.fragment.InfoFragment;
+import com.petsknow.doctor.mainmodule.bean.PetTypeBean;
 import com.petsknow.doctor.patientmodule.activity.PatientActivity;
 import com.petsknow.doctor.sessionmodule.fragment.SessionListFragment;
 import com.petsknow.doctor.usermodule.fragment.UserFragment;
 import com.petsknow.doctor.usermodule.manger.UserManger;
+import com.squareup.okhttp.Request;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
@@ -56,6 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private List<Fragment> fragments = new ArrayList<>();
     private Intent intent;
     private NewMessageBroadcastReceiver msgReceiver;
+    private static PetTypeBean petTypeBean;
 
     /**
      * 这是一个环信监听连接状态的方法
@@ -99,15 +108,69 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void onEvent(String event) {
-        if (event.equals("Admissions")){
+        if (event.equals("Admissions")) {
             rb_ask.setChecked(true);
             vp_main.setCurrentItem(0);
         }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getpettype();
+    }
+
+    /**
+     * 这是一个获取宠物品种的方法
+     */
+    private static void getpettype() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.getpettype;
+        OkHttpUtil.Request(RequestPacket.GET, requestPacket, new ResponseListener<PetTypeBean>() {
+            @Override
+            public void onSuccess(PetTypeBean petTypeBea) {
+                if (petTypeBea.getStatus() == 0 && petTypeBea.getData() != null) {
+                    petTypeBean = petTypeBea;
+                } else {
+                    T.showLong(PetsknowDoctorApplication.context, petTypeBea.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(Request request) {
+
+            }
+        });
+
+    }
+
+    /**
+     * 这是一个根据宠物品种id获取宠物名字的方法
+     *
+     * @param id
+     */
+    public static String getPetTypeName(int id) {
+        if (petTypeBean != null) {
+            if (petTypeBean.getStatus() == 0 && petTypeBean.getData() != null) {
+                for (int i = 0; i < petTypeBean.getData().size(); i++) {
+                    if (id == petTypeBean.getData().get(i).getSpecies()) {
+                        return petTypeBean.getData().get(i).getName();
+                    }
+                }
+            } else {
+                getpettype();
+            }
+        } else {
+            getpettype();
+        }
+
+        return null;
     }
 
     /**

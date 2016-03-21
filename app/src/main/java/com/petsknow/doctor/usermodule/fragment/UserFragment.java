@@ -6,22 +6,20 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.Constant;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.fragment.BaseFragment;
-import com.petsknow.doctor.commonmodule.utils.L;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.commonmodule.view.MyListview;
 import com.petsknow.doctor.guidemodule.activity.SplashActivity;
 import com.petsknow.doctor.usermodule.activity.SettingActivity;
 import com.petsknow.doctor.usermodule.bean.MypersonBean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -50,7 +48,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     Switch ivSwitchButton;
     @Bind(R.id.my_lv_pingjia)
     MyListview myLvPingjia;
-    private MypersonBean mypersonBean;
 
     @Override
     public void initdata(Bundle arguments) {
@@ -64,34 +61,21 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void getmypersoninfo() {
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.getdoctorinfo;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("doctorId", UserManger.getUserId());
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.getdoctorinfo;
+        requestPacket.addArgument("doctorId", UserManger.getUserId());
+        OkHttpUtil.Request(RequestPacket.GET, requestPacket, new ResponseListener<MypersonBean>() {
             @Override
-            public void onSuccess(String o) {
-                L.e("所有会话列表", o);
-                mypersonBean = JSON.parseObject(o, MypersonBean.class);
+            public void onSuccess(MypersonBean mypersonBean) {
                 if (mypersonBean.getData() != null && mypersonBean.getStatus() == 0) {
-                    initViewData();
+                    initViewData(mypersonBean);
                 } else {
                     T.show(getActivity(), mypersonBean.getMsg(), 0);
                 }
-
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(getActivity(), "网络请求超时,请稍后再试", 0);
-            }
-
-            @Override
-            public void onCancelled(CancelledException e) {
-
-            }
-
-            @Override
-            public void onFinished() {
+            public void onFailure(Request request) {
 
             }
         });
@@ -99,8 +83,9 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     /**
      * 设置界面数据
+     * @param mypersonBean
      */
-    private void initViewData() {
+    private void initViewData(MypersonBean mypersonBean) {
         //医生名字
         tvUserName.setText(mypersonBean.getData().get(0).getTrueName());
         //职业

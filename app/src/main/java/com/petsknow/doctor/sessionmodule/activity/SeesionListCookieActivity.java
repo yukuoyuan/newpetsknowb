@@ -86,7 +86,7 @@ public class SeesionListCookieActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
-    @OnClick({R.id.tv_right})
+    @OnClick({R.id.tv_right, R.id.iv_back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_right:
@@ -100,6 +100,9 @@ public class SeesionListCookieActivity extends BaseActivity implements View.OnCl
                 intent.putExtra("msg", text);
                 setResult(RESULT_OK, intent);
                 finish();
+                break;
+            case R.id.iv_back:
+                onBackPressed();
                 break;
         }
     }

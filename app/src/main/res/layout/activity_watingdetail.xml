@@ -6,318 +6,335 @@
 
     <include layout="@layout/public_toolbar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_watingdetial_avator"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-
-            <TextView
-                android:id="@+id/tv_watingdetailusername"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="nihao" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/watingdetail_desc_bg">
-
-            <TextView
-                android:id="@+id/tv_watingdetaildesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:text="anoafahfioahofhahfoiajiofaifafiaifafafafajfjafanfafnanfa" />
-        </FrameLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="123dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/wating_detail_photo">
-
-        <LinearLayout
-            android:id="@+id/ll_watingdetailphoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-            <ImageView
-                android:id="@+id/iv_watingdetail_photoone"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_margin="6dp" />
-
-            <ImageView
-                android:id="@+id/iv_watingdetail_phototwo"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_margin="6dp" />
-
-            <ImageView
-                android:id="@+id/iv_watingdetail_photothree"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_margin="6dp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_watingdetail_nohave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/user_nohavept"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/petinfo_bg"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_petname_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="23dp"
-                android:text="宠物姓名:"
-                android:textColor="@android:color/white"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/tv_watingdetail_pet_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/tv_petname_no"
-                android:text="奥特曼"
-                android:textColor="@android:color/white"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/tv_watingdetail_pet_breed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="26dp"
-                android:ellipsize="end"
-                android:maxEms="7"
-                android:singleLine="true"
-                android:text="其它"
-                android:textColor="@android:color/white"
-                android:textSize="17sp" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
+
+                    <com.petsknow.doctor.commonmodule.view.CircleImageView
+                        android:id="@+id/iv_watingdetial_avator"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_watingdetailusername"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="年龄:"
-                        android:textColor="@color/color_7e7e7e"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tv_watingdetail_pet_age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="6个月"
-                        android:textColor="@color/color_323030"
-                        android:textSize="13sp" />
-
+                        android:gravity="center"
+                        android:text="nihao" />
                 </LinearLayout>
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/watingdetail_desc_bg">
 
                     <TextView
+                        android:id="@+id/tv_watingdetaildesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="绝育状态:"
-                        android:textColor="@color/color_7e7e7e"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tv_wating_detail_pet_sterrilization"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="未知"
-                        android:textColor="@color/color_323030"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="体内驱虫:"
-                        android:textColor="@color/color_7e7e7e"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tv_watingdetail_pet_in_parasite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2014-09"
-                        android:textColor="@color/color_323030"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="联苗针:"
-                        android:textColor="@color/color_7e7e7e"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tv_watingdetail_pet_needle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="未知"
-                        android:textColor="@color/color_323030"
-                        android:textSize="13sp" />
-                </LinearLayout>
+                        android:layout_margin="6dp"
+                        android:text="anoafahfioahofhahfoiajiofaifafiaifafafafajfjafanfafnanfa" />
+                </FrameLayout>
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="123dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/wating_detail_photo">
+
+                <LinearLayout
+                    android:id="@+id/ll_watingdetailphoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/iv_watingdetail_photoone"
+                        android:layout_width="80dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="6dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_watingdetail_phototwo"
+                        android:layout_width="80dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="6dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_watingdetail_photothree"
+                        android:layout_width="80dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="6dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_watingdetail_nohave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/user_nohavept"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:layout_weight="1"
+                android:layout_margin="15dp"
+                android:background="@drawable/petinfo_bg"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_petname_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="性别:"
-                        android:textColor="@color/color_7e7e7e"
-                        android:textSize="13sp" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="23dp"
+                        android:text="宠物姓名:"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp" />
 
                     <TextView
-                        android:id="@+id/tv_watingdetail_pet_gender"
+                        android:id="@+id/tv_watingdetail_pet_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Male"
-                        android:textColor="@color/color_323030"
-                        android:textSize="13sp" />
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/tv_petname_no"
+                        android:text="奥特曼"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp" />
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_watingdetail_pet_breed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="26dp"
+                        android:ellipsize="end"
+                        android:maxEms="7"
+                        android:singleLine="true"
+                        android:text="其它"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp" />
+
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="狂犬疫苗:"
-                        android:textColor="@color/color_7e7e7e"
-                        android:textSize="13sp" />
+                        android:layout_marginLeft="23dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_watingdetail_pet_rabies_vaccine"
-                        android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="年龄:"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_watingdetail_pet_age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="6个月"
+                                android:textColor="@color/color_323030"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="绝育状态:"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_wating_detail_pet_sterrilization"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="未知"
+                                android:textColor="@color/color_323030"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="体内驱虫:"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_watingdetail_pet_in_parasite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2014-09"
+                                android:textColor="@color/color_323030"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="联苗针:"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_watingdetail_pet_needle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="未知"
+                                android:textColor="@color/color_323030"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="未注射"
-                        android:textColor="@color/color_323030"
-                        android:textSize="13sp" />
+                        android:layout_marginLeft="23dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="性别:"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="体外驱虫:"
-                        android:textColor="@color/color_7e7e7e"
-                        android:textSize="13sp" />
+                            <TextView
+                                android:id="@+id/tv_watingdetail_pet_gender"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Male"
+                                android:textColor="@color/color_323030"
+                                android:textSize="13sp" />
 
-                    <TextView
-                        android:id="@+id/tv_watingdetail_pet_out_parasite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2014-11"
-                        android:textColor="@color/color_323030"
-                        android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="狂犬疫苗:"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_watingdetail_pet_rabies_vaccine"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="未注射"
+                                android:textColor="@color/color_323030"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="体外驱虫:"
+                                android:textColor="@color/color_7e7e7e"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_watingdetail_pet_out_parasite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2014-11"
+                                android:textColor="@color/color_323030"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <com.petsknow.doctor.commonmodule.view.MyListview
+                android:id="@+id/mlv_watingdetail_history_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

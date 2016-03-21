@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.easemob.EMCallBack;
 import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMChatManager;
@@ -18,15 +17,15 @@ import com.petsknow.doctor.commonmodule.activity.BaseActivity;
 import com.petsknow.doctor.commonmodule.constant.Constant;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.constant.PetsknowDoctorApplication;
+import com.petsknow.doctor.commonmodule.netutil.OkHttpUtil;
+import com.petsknow.doctor.commonmodule.netutil.RequestPacket;
+import com.petsknow.doctor.commonmodule.netutil.ResponseListener;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.commonmodule.utils.L;
 import com.petsknow.doctor.commonmodule.utils.T;
 import com.petsknow.doctor.sessionmodule.bean.Sendmedicalbean;
 import com.petsknow.doctor.usermodule.manger.UserManger;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import com.squareup.okhttp.Request;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -82,7 +81,7 @@ public class EditAegrotatActivity extends BaseActivity implements View.OnClickLi
         petid = extras.getInt("petid");
         sessionid = extras.getInt("sessionid");
         ownerid = extras.getInt("ownerid");
-        tochartusername =extras.getString("toChatUsername");
+        tochartusername = extras.getString("toChatUsername");
         publicTitlebg.setVisibility(View.GONE);
         ibMainMypatient.setVisibility(View.GONE);
         tvRight.setVisibility(View.GONE);
@@ -188,43 +187,29 @@ public class EditAegrotatActivity extends BaseActivity implements View.OnClickLi
             T.showLong(PetsknowDoctorApplication.context, "建议方案不能为空..请输入建议方案....");
             return;
         }
-        String url = ConstantUrl.BaseUrl() + ConstantUrl.sendMedical;
-        RequestParams params = new RequestParams(url);
-        params.addParameter("doctorId", UserManger.getUserId());
-        params.addParameter("petId", petid);//宠物id
-        params.addParameter("illnessDescription", descption);//主诉信息
-        params.addParameter("illnessAnalysis", firstinfo);//初诊方案
-        params.addParameter("advice", adviceinfo);//建议
-        params.addParameter("registerId", id);//问诊id
-        params.addParameter("ownerId", ownerid);//所属用户id
-        params.addParameter("SessionId", sessionid);//会话id
-        params.setAsJsonContent(true);
-        x.http().post(params, new Callback.CommonCallback<String>() {
+        RequestPacket requestPacket = new RequestPacket();
+        requestPacket.url = ConstantUrl.BaseUrl() + ConstantUrl.sendMedical;
+        requestPacket.addArgument("doctorId", UserManger.getUserId());
+        requestPacket.addArgument("petId", petid);//宠物id
+        requestPacket.addArgument("illnessDescription", descption);//主诉信息
+        requestPacket.addArgument("illnessAnalysis", firstinfo);//初诊方案
+        requestPacket.addArgument("advice", adviceinfo);//建议
+        requestPacket.addArgument("registerId", id);//问诊id
+        requestPacket.addArgument("ownerId", ownerid);//所属用户id
+        requestPacket.addArgument("SessionId", sessionid);//会话id
+        OkHttpUtil.Request(RequestPacket.POST, requestPacket, new ResponseListener<Sendmedicalbean>() {
             @Override
-            public void onSuccess(String o) {
-                L.i("发送诊断书", o);
-                sendmedicalbean = JSON.parseObject(o, Sendmedicalbean.class);
+            public void onSuccess(Sendmedicalbean sendmedicalbean) {
                 if (sendmedicalbean.getStatus() == 0) {
                     EventBus.getDefault().post("Admissions");
                     //发送cmd消息
                     sendcmdmsg(sendmedicalbean.getData().get(0).getId());
-
                 }
-
             }
 
             @Override
-            public void onError(Throwable throwable, boolean b) {
-                T.show(EditAegrotatActivity.this, "网络请求超时,请稍后再试", 0);
-                L.e("所有会话列表的错误信息", throwable.toString());
-            }
+            public void onFailure(Request request) {
 
-            @Override
-            public void onCancelled(CancelledException e) {
-            }
-
-            @Override
-            public void onFinished() {
             }
         });
         finish();

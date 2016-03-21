@@ -7,13 +7,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.petsknow.doctor.R;
 import com.petsknow.doctor.commonmodule.constant.ConstantUrl;
 import com.petsknow.doctor.commonmodule.utils.DateUtil;
 import com.petsknow.doctor.patientmodule.bean.MypatientBean;
 
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
 
 import java.util.List;
 
@@ -24,26 +23,11 @@ import java.util.List;
 public class MyPatientlistViewAdapter extends BaseAdapter {
     private List<MypatientBean.DataEntity> list;
     private Context context;
-    private ImageOptions options;
 
     public MyPatientlistViewAdapter(Context context, List<MypatientBean.DataEntity> list) {
         super();
         this.list = list;
         this.context = context;
-        initImageoptions();
-    }
-
-    private void initImageoptions() {
-        options = new ImageOptions.Builder()
-                //设置加载过程中的图片
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
-                        //设置加载失败后的图片
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                        //设置显示圆形图片
-                .setCircular(true)
-                        //设置支持gif
-                .setIgnoreGif(false)
-                .build();
     }
 
     @Override
@@ -62,7 +46,9 @@ public class MyPatientlistViewAdapter extends BaseAdapter {
         /**
          * 头像
          */
-        x.image().bind(myHolder.avaturl, ConstantUrl.qiniu + list.get(position).getPets().getPetsAvator(), options);
+        Glide.with(context).load(ConstantUrl.qiniu + list.get(position).getPets().getPetsAvator())
+                .error(R.drawable.default_icon_headphoto).into(myHolder.avaturl);
+        //x.image().bind(myHolder.avaturl, ConstantUrl.qiniu + list.get(position).getPets().getPetsAvator(), options);
         //宠物名字
         myHolder.petname.setText(list.get(position).getPets().getName());
         //时间
