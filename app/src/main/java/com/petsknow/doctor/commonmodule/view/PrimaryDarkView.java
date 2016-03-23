@@ -9,6 +9,7 @@ import com.petsknow.doctor.commonmodule.utils.ScreenUtils;
 
 /**
  * Created by yukuo on 2016/3/18.
+ * 这是一个通过增加默认的pading值使其生成沉浸式状态懒得自定义linearlayout
  */
 public class PrimaryDarkView extends LinearLayout {
 
